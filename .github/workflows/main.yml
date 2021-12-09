@@ -1,0 +1,71 @@
+name: JD_Actions
+on:
+  schedule:
+    - cron: 5 */1 * * *
+  workflow_dispatch:
+  watch:
+    types: started
+jobs:
+  build:
+    runs-on: Ubuntu-20.04  
+    steps:
+    - name: set_time
+      run: |
+        cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+        date
+    - uses: actions/checkout@v2
+    - name: Install build dependencies
+      run: |
+        sudo npm install -g typescript
+        sudo apt-get install wget
+    - name: down
+      run: |
+        echo "========= 开始清空脚本 ========="
+        shopt -s extglob
+        rm -rf !(README.md|package.json)
+        shopt -u extglob
+        echo "========= 开始下载小小的脚本及依赖 ========="
+        git clone -b jd_scripts https://github.com/Aaron-lv/sync.git ./Aaron
+        sed -i '/Pillow<=7.1.2/d' ./Aaron/docker/bot/requirements.txt
+        rm ./Aaron/package.json
+        cp -rf ./Aaron/* ./
+        rm -rf ./Aaron
+        echo "========= 开始下载JDHelloWorld的脚本 ========="
+        git clone https://github.com/JDHelloWorld/jd_scripts.git ./JDHelloWorld
+        echo "========= 开始复制依赖 ========="
+        cp -f ./JDHelloWorld/*ShareCodes.js ./
+        cp -rf ./JDHelloWorld/{jd_plantBean.js,jd_fruit.js,jd_pet.js,jd_dreamFactory.js,jd_jdfactory.js,jd_sgmh.js} ./
+        echo "========= 开始转换JDHelloWorld的ts脚本 ========="
+        cd ./JDHelloWorld
+        rm -rf ./backUp
+        rm `ls *.js|egrep -v sendNotify.js`
+        sed -i 's#/test##g' ./jd_喂猪.ts
+        sudo npm install
+        tsc
+        sed -i 's/sendNotify_1/notify/g' *.js
+        echo "========= 开始复制JDHelloWorld的脚本 ========="
+        cd ..
+        awk 'BEGIN { cmd="cp -ri ./JDHelloWorld/utils ./"; print "n" |cmd; }'
+        mv ./JDHelloWorld/jd_jxmc.js ./JDHelloWorld/jd_jxmch.js
+        mv ./JDHelloWorld/jd_cfd.js ./JDHelloWorld/jd_cfdh.js
+        awk 'BEGIN { cmd="cp -i ./JDHelloWorld/*.js ./"; print "n" |cmd; }'
+        rm -rf ./JDHelloWorld
+        echo "========= 开始下载单文件脚本 ========="
+        wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/jd_sign_graphics.js
+        wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/JDJRValidator_Pure.js
+        wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/sign_graphics_validate.js
+        echo "========= 开始删除某些任务 ========="
+        sed -i '/jd_beauty.js\|jd_crazy_joy\|jd_daily_egg.js\|jd_daily_lottery.js\|jd_jxg.js\|jd_jxnc.js\|jd_small_home.js\|jd_speed.js\|jd_speed_redpocke.js\|jd_moneyTree.js\|jd_kd.js/d' ./docker/crontab_list.sh
+        #sed -i 's#📣#\\ud83d\\udce3#g;s#❗️#\\u2757\\ufe0f#g;s#🔔#\\ud83d\\udd14#g;s#🕛#\\ud83d\\udd5b#g' *.js
+    - name: 'Commit Files'
+      id: commit
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git diff --quiet && git diff --staged --quiet || git commit -am "$(date +%Y%m%d-%H:%M)"
+    - name: Push Dust
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.TOKEN }}
+        branch: master
