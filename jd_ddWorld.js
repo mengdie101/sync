@@ -1,6 +1,7 @@
 "use strict";
 /**
  * 东东世界
+ * https://ddsj-dz.isvjcloud.com/
  * cron: 5 0,8,20 * * *
  */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -50,11 +51,44 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 exports.__esModule = true;
 var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
 var cookie = '', res = '', shareCodesInternal = [], UserName, index;
 var tokenKey = '', token = '', bearer = '';
+var HW_Priority = true, shareCodeHW = [], shareCode = [];
+/**
+ * CK1助力顺序
+ * HW_Priority: boolean
+ * true  HW.ts -> 内部
+ * false 内部   -> HW.ts
+ */
+process.env.HW_Priority === 'false' ? HW_Priority = false : '';
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
     var cookiesArr, i, _a, _b, t, items, items_1, items_1_1, item, name_1, e_1_1, e_2_1, res_1, res_1_1, t, e_3_1, i;
     var e_2, _c, e_1, _d, e_3, _e;
@@ -207,24 +241,36 @@ var tokenKey = '', token = '', bearer = '';
                 i = 0;
                 _f.label = 38;
             case 38:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 42];
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 44];
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
+                if (!(shareCodeHW.length === 0)) return [3 /*break*/, 40];
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.getshareCodeHW)('ddWorld')];
+            case 39:
+                shareCodeHW = _f.sent();
+                _f.label = 40;
+            case 40:
+                if (i === 0 && HW_Priority) {
+                    shareCode = __spreadArray(__spreadArray([], __read(shareCodeHW), false), __read(shareCodesInternal), false);
+                }
+                else {
+                    shareCode = __spreadArray(__spreadArray([], __read(shareCodesInternal), false), __read(shareCodeHW), false);
+                }
                 console.log("".concat(UserName, " \u53BB\u52A9\u529B ").concat(shareCodesInternal[0].taskToken));
                 return [4 /*yield*/, api('do_assist_task', "taskToken=".concat(shareCodesInternal[0].taskToken, "&inviter_id=").concat(shareCodesInternal[0].inviter_id))];
-            case 39:
-                res = _f.sent();
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(4000)];
-            case 40:
-                _f.sent();
-                console.log('助力结果：', res);
-                if (!res)
-                    return [3 /*break*/, 42];
-                _f.label = 41;
             case 41:
+                res = _f.sent();
+                (0, TS_USER_AGENTS_1.o2s)(res);
+                // console.log('助力结果：', res)
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(4000)];
+            case 42:
+                // console.log('助力结果：', res)
+                _f.sent();
+                _f.label = 43;
+            case 43:
                 i++;
                 return [3 /*break*/, 38];
-            case 42: return [2 /*return*/];
+            case 44: return [2 /*return*/];
         }
     });
 }); })();
