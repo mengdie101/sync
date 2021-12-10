@@ -5,9 +5,7 @@
  * cron: 1 0,6,18 * * *
  * 固定log，不知道什么时候会gg
  * CK1助力顺序
- * HW_Priority: boolean
- * true  HW.ts -> 内部
- * false 内部   -> HW.ts
+ * HW.ts -> 内部
  */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -85,8 +83,7 @@ exports.__esModule = true;
 var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
 var cookie = '', res = '', UserName;
-var shareCodesSelf = [], shareCodes = [], shareCodesHW = [], HW_Priority = true;
-process.env.HW_Priority === 'false' ? HW_Priority = false : '';
+var shareCodesSelf = [], shareCodes = [], shareCodesHW = [];
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
     var cookiesArr, _a, _b, _c, index, value, e_1, e_2_1, _d, _e, _f, index, value, shareCodes_1, shareCodes_1_1, code, e_3_1, e_4_1, _g, _h, _j, index, value, _k, _l, t, _m, _o, tp, e_5_1, e_6_1, j, _p, _q, t, e_7_1, e_8, e_9_1;
     var e_2, _r, e_4, _s, e_3, _t, e_9, _u, e_6, _v, e_5, _w, e_7, _x;
@@ -150,15 +147,15 @@ process.env.HW_Priority === 'false' ? HW_Priority = false : '';
             case 15:
                 if (!!_e.done) return [3 /*break*/, 27];
                 _f = __read(_e.value, 2), index = _f[0], value = _f[1];
-                UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 cookie = value;
+                UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 if (!(shareCodesHW.length === 0)) return [3 /*break*/, 17];
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.getshareCodeHW)('jlhb')];
             case 16:
                 shareCodesHW = _y.sent();
                 _y.label = 17;
             case 17:
-                if (index === 0 && HW_Priority) {
+                if (index === 0) {
                     shareCodes = Array.from(new Set(__spreadArray(__spreadArray([], __read(shareCodesHW), false), __read(shareCodesSelf), false)));
                 }
                 else {
