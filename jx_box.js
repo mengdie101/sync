@@ -89,7 +89,7 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = ['aae98a3e3b04d3ac430ee9ee
 var HW_Priority = true;
 process.env.HW_Priority === 'false' ? HW_Priority = false : '';
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, i, shareCode_1, shareCode_1_1, code, e_1_1, i, _a, _b, t, e_2_1, _c, _d, t, e_3_1, e_4;
+    var cookiesArr, i, HW_Random, shareCode_1, shareCode_1_1, code, e_1_1, i, _a, _b, t, e_2_1, _c, _d, t, e_3_1, e_4;
     var e_1, _e, e_2, _f, e_3, _g;
     return __generator(this, function (_h) {
         switch (_h.label) {
@@ -112,12 +112,12 @@ process.env.HW_Priority === 'false' ? HW_Priority = false : '';
                 _h.label = 4;
             case 4:
                 if (!(i < cookiesArr.length)) return [3 /*break*/, 14];
-                // let HW_Random = shareCodeHW[Math.floor(Math.random() * shareCodeHW.length)]
+                HW_Random = shareCodeHW[Math.floor(Math.random() * shareCodeHW.length)];
                 if (i === 0 && HW_Priority) {
-                    shareCode = Array.from(new Set(__spreadArray(__spreadArray([], __read(shareCodeHW), false), __read(shareCodeSelf), false)));
+                    shareCode = Array.from(new Set(__spreadArray([HW_Random], __read(shareCodeSelf), false)));
                 }
                 else {
-                    shareCode = Array.from(new Set(__spreadArray(__spreadArray([], __read(shareCodeSelf), false), __read(shareCodeHW), false)));
+                    shareCode = Array.from(new Set(__spreadArray(__spreadArray([], __read(shareCodeSelf), false), [HW_Random], false)));
                 }
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
