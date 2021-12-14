@@ -175,6 +175,7 @@ process.env.HW_Priority === 'false' ? HW_Priority = false : '';
                 return [7 /*endfinally*/];
             case 21:
                 if (!(t.taskName === '邀请好友助力')) return [3 /*break*/, 23];
+                console.log('收到助力：', t.times);
                 return [4 /*yield*/, api('get_user_info')];
             case 22:
                 res = _q.sent();
@@ -203,7 +204,6 @@ process.env.HW_Priority === 'false' ? HW_Priority = false : '';
                 return [4 /*yield*/, api('get_exchange')];
             case 28:
                 res = _q.sent();
-                console.log(res);
                 _q.label = 29;
             case 29:
                 _q.trys.push([29, 35, 36, 37]);
@@ -212,7 +212,7 @@ process.env.HW_Priority === 'false' ? HW_Priority = false : '';
             case 30:
                 if (!!res_1_1.done) return [3 /*break*/, 34];
                 t = res_1_1.value;
-                if (!(t.times_limit !== t.exchange_total)) return [3 /*break*/, 33];
+                if (!([500, 1000].includes(t.coins) && t.times_limit !== t.exchange_total)) return [3 /*break*/, 33];
                 console.log('兑换', t.coins);
                 return [4 /*yield*/, api('do_exchange', "id=".concat(t.id))];
             case 31:
