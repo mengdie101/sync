@@ -50,13 +50,12 @@ jobs:
         mv ./JDHelloWorld/jd_cfd.js ./JDHelloWorld/jd_cfdh.js
         awk 'BEGIN { cmd="cp -i ./JDHelloWorld/*.js ./"; print "n" |cmd; }'
         rm -rf ./JDHelloWorld
-        echo "========= 开始下载单文件脚本 ========="
-        wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/jd_sign_graphics.js
-        wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/JDJRValidator_Pure.js
-        wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/sign_graphics_validate.js
+        #echo "========= 开始下载单文件脚本 ========="
+        #wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/jd_sign_graphics.js
+        #wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/JDJRValidator_Pure.js
+        #wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/sign_graphics_validate.js
         echo "========= 开始删除某些任务 ========="
         sed -i '/jd_beauty.js\|jd_crazy_joy\|jd_daily_egg.js\|jd_daily_lottery.js\|jd_jxg.js\|jd_jxnc.js\|jd_small_home.js\|jd_speed.js\|jd_speed_redpocke.js\|jd_moneyTree.js\|jd_kd.js/d' ./docker/crontab_list.sh
-        #sed -i 's#📣#\\ud83d\\udce3#g;s#❗️#\\u2757\\ufe0f#g;s#🔔#\\ud83d\\udd14#g;s#🕛#\\ud83d\\udd5b#g' *.js
     - name: 'Commit Files'
       id: commit
       run: |
