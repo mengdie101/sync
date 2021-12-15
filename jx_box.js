@@ -89,27 +89,27 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = ['aae98a3e3b04d3ac430ee9ee
 var HW_Priority = true;
 process.env.HW_Priority === 'false' ? HW_Priority = false : '';
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, i, HW_Random, shareCode_1, shareCode_1_1, code, e_1_1, i, _a, _b, t, e_2_1, _c, _d, t, e_3_1, e_4;
-    var e_1, _e, e_2, _f, e_3, _g;
-    return __generator(this, function (_h) {
-        switch (_h.label) {
+    var cookiesArr, i, HW_Random, shareCode_1, shareCode_1_1, code, e_1_1, i, _a, _b, t, e_2_1, sqactive, _c, _d, t, e_3_1, _e, _f, t, e_4_1, e_5;
+    var e_1, _g, e_2, _h, e_3, _j, e_4, _k;
+    return __generator(this, function (_l) {
+        switch (_l.label) {
             case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.requestAlgo)()];
             case 1:
-                _h.sent();
+                _l.sent();
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
             case 2:
-                cookiesArr = _h.sent();
+                cookiesArr = _l.sent();
                 cookie = cookiesArr[0];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F71 ".concat(UserName, "\n"));
                 return [4 /*yield*/, api('query', 'signhb_source,smp,type', {})];
             case 3:
-                res = _h.sent();
+                res = _l.sent();
                 console.log('助力码:', res.smp);
                 shareCodeSelf.push(res.smp);
                 console.log('内部助力:', shareCodeSelf);
                 i = 0;
-                _h.label = 4;
+                _l.label = 4;
             case 4:
                 if (!(i < cookiesArr.length)) return [3 /*break*/, 14];
                 HW_Random = shareCodeHW[Math.floor(Math.random() * shareCodeHW.length)];
@@ -121,36 +121,36 @@ process.env.HW_Priority === 'false' ? HW_Priority = false : '';
                 }
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
-                _h.label = 5;
+                _l.label = 5;
             case 5:
-                _h.trys.push([5, 11, 12, 13]);
+                _l.trys.push([5, 11, 12, 13]);
                 shareCode_1 = (e_1 = void 0, __values(shareCode)), shareCode_1_1 = shareCode_1.next();
-                _h.label = 6;
+                _l.label = 6;
             case 6:
                 if (!!shareCode_1_1.done) return [3 /*break*/, 10];
                 code = shareCode_1_1.value;
                 console.log("".concat(UserName, " \u53BB\u52A9\u529B ").concat(code));
                 return [4 /*yield*/, api('query', 'signhb_source,smp,type', { signhb_source: 5, smp: code, type: 1 })];
             case 7:
-                res = _h.sent();
+                res = _l.sent();
                 console.log('助力码:', res.smp);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 8:
-                _h.sent();
+                _l.sent();
                 if (res.autosign_sendhb !== '0' || res.todaysign === 1)
                     return [3 /*break*/, 10];
-                _h.label = 9;
+                _l.label = 9;
             case 9:
                 shareCode_1_1 = shareCode_1.next();
                 return [3 /*break*/, 6];
             case 10: return [3 /*break*/, 13];
             case 11:
-                e_1_1 = _h.sent();
+                e_1_1 = _l.sent();
                 e_1 = { error: e_1_1 };
                 return [3 /*break*/, 13];
             case 12:
                 try {
-                    if (shareCode_1_1 && !shareCode_1_1.done && (_e = shareCode_1["return"])) _e.call(shareCode_1);
+                    if (shareCode_1_1 && !shareCode_1_1.done && (_g = shareCode_1["return"])) _g.call(shareCode_1);
                 }
                 finally { if (e_1) throw e_1.error; }
                 return [7 /*endfinally*/];
@@ -159,19 +159,20 @@ process.env.HW_Priority === 'false' ? HW_Priority = false : '';
                 return [3 /*break*/, 4];
             case 14:
                 i = 0;
-                _h.label = 15;
+                _l.label = 15;
             case 15:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 44];
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 54];
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 index = i + 1;
                 console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7".concat(index, "\u3011").concat(UserName, "\n"));
-                _h.label = 16;
+                _l.label = 16;
             case 16:
-                _h.trys.push([16, 40, , 41]);
+                _l.trys.push([16, 50, , 51]);
                 return [4 /*yield*/, api('query', 'ispp,signhb_source,smp,tk,type', { signhb_source: 5, smp: '', ispp: 0, tk: '', type: 1 })];
             case 17:
-                res = _h.sent();
+                // 宝箱任务
+                res = _l.sent();
                 try {
                     console.log(res.invitesign);
                     console.log(parseFloat(res.invitesign.getmoney));
@@ -181,7 +182,7 @@ process.env.HW_Priority === 'false' ? HW_Priority = false : '';
                 }
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 18:
-                _h.sent();
+                _l.sent();
                 return [4 /*yield*/, api('query', 'signhb_source,smp,type', { signhb_source: 5, smp: '', type: 1 })
                     /*
                     // 日历
@@ -215,12 +216,12 @@ process.env.HW_Priority === 'false' ? HW_Priority = false : '';
                     */
                 ];
             case 19:
-                res = _h.sent();
-                _h.label = 20;
+                res = _l.sent();
+                _l.label = 20;
             case 20:
-                _h.trys.push([20, 26, 27, 28]);
+                _l.trys.push([20, 26, 27, 28]);
                 _a = (e_2 = void 0, __values(res.commontask || [])), _b = _a.next();
-                _h.label = 21;
+                _l.label = 21;
             case 21:
                 if (!!_b.done) return [3 /*break*/, 25];
                 t = _b.value;
@@ -228,7 +229,7 @@ process.env.HW_Priority === 'false' ? HW_Priority = false : '';
                 console.log(t.taskname);
                 return [4 /*yield*/, api("https://m.jingxi.com/fanxiantask/signhb/dotask?task=".concat(t.task, "&signhb_source=5&_=").concat(Date.now(), "&sceneval=2"), '')];
             case 22:
-                res = _h.sent();
+                res = _l.sent();
                 if (res.ret === 0) {
                     console.log('任务完成，获得：', res.sendhb);
                 }
@@ -237,80 +238,118 @@ process.env.HW_Priority === 'false' ? HW_Priority = false : '';
                 }
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(3000)];
             case 23:
-                _h.sent();
-                _h.label = 24;
+                _l.sent();
+                _l.label = 24;
             case 24:
                 _b = _a.next();
                 return [3 /*break*/, 21];
             case 25: return [3 /*break*/, 28];
             case 26:
-                e_2_1 = _h.sent();
+                e_2_1 = _l.sent();
                 e_2 = { error: e_2_1 };
                 return [3 /*break*/, 28];
             case 27:
                 try {
-                    if (_b && !_b.done && (_f = _a["return"])) _f.call(_a);
+                    if (_b && !_b.done && (_h = _a["return"])) _h.call(_a);
                 }
                 finally { if (e_2) throw e_2.error; }
                 return [7 /*endfinally*/];
-            case 28: return [4 /*yield*/, api('query', 'signhb_source,smp,type', { signhb_source: 5, smp: '', type: 1 })];
+            case 28: return [4 /*yield*/, api('query', 'type,signhb_source,smp,ispp,tk', { type: 0, signhb_source: 5, smp: '', ispp: 1, tk: '' })];
             case 29:
-                res = _h.sent();
-                if (!(res.baoxiang_left != 0)) return [3 /*break*/, 38];
-                console.log(res.baoxiang_stage);
-                _h.label = 30;
+                // 喜豆任务
+                res = _l.sent();
+                sqactive = res.sqactive;
+                _l.label = 30;
             case 30:
-                _h.trys.push([30, 36, 37, 38]);
-                _c = (e_3 = void 0, __values(res.baoxiang_stage)), _d = _c.next();
-                _h.label = 31;
+                _l.trys.push([30, 36, 37, 38]);
+                _c = (e_3 = void 0, __values(res.commontask)), _d = _c.next();
+                _l.label = 31;
             case 31:
                 if (!!_d.done) return [3 /*break*/, 35];
                 t = _d.value;
                 if (!(t.status === 1)) return [3 /*break*/, 34];
-                return [4 /*yield*/, api("https://m.jingxi.com/fanxiantask/signhb/bxdraw?_=".concat(Date.now(), "&sceneval=2"), '')];
+                console.log('喜豆任务：', t.taskbtnn);
+                return [4 /*yield*/, api("https://m.jingxi.com/fanxiantask/signhb/dotask?task=".concat(t.task, "&signhb_source=5&ispp=1&sqactive=").concat(sqactive, "&tk=&_=").concat(Date.now(), "&sceneval=2"), '')];
             case 32:
-                res = _h.sent();
-                console.log('开宝箱，获得：', res.sendhb);
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(3000)];
+                res = _l.sent();
+                console.log('任务完成，获得：', res.sendxd);
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 33:
-                _h.sent();
-                _h.label = 34;
+                _l.sent();
+                _l.label = 34;
             case 34:
                 _d = _c.next();
                 return [3 /*break*/, 31];
             case 35: return [3 /*break*/, 38];
             case 36:
-                e_3_1 = _h.sent();
+                e_3_1 = _l.sent();
                 e_3 = { error: e_3_1 };
                 return [3 /*break*/, 38];
             case 37:
                 try {
-                    if (_d && !_d.done && (_g = _c["return"])) _g.call(_c);
+                    if (_d && !_d.done && (_j = _c["return"])) _j.call(_c);
                 }
                 finally { if (e_3) throw e_3.error; }
                 return [7 /*endfinally*/];
-            case 38: return [4 /*yield*/, doubleSign()];
+            case 38: return [4 /*yield*/, api('query', 'signhb_source,smp,type', { signhb_source: 5, smp: '', type: 1 })];
             case 39:
-                res = _h.sent();
+                // 开宝箱
+                res = _l.sent();
+                if (!(res.baoxiang_left != 0)) return [3 /*break*/, 48];
+                console.log(res.baoxiang_stage);
+                _l.label = 40;
+            case 40:
+                _l.trys.push([40, 46, 47, 48]);
+                _e = (e_4 = void 0, __values(res.baoxiang_stage)), _f = _e.next();
+                _l.label = 41;
+            case 41:
+                if (!!_f.done) return [3 /*break*/, 45];
+                t = _f.value;
+                if (!(t.status === 1)) return [3 /*break*/, 44];
+                return [4 /*yield*/, api("https://m.jingxi.com/fanxiantask/signhb/bxdraw?_=".concat(Date.now(), "&sceneval=2"), '')];
+            case 42:
+                res = _l.sent();
+                console.log('开宝箱，获得：', res.sendhb);
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(3000)];
+            case 43:
+                _l.sent();
+                _l.label = 44;
+            case 44:
+                _f = _e.next();
+                return [3 /*break*/, 41];
+            case 45: return [3 /*break*/, 48];
+            case 46:
+                e_4_1 = _l.sent();
+                e_4 = { error: e_4_1 };
+                return [3 /*break*/, 48];
+            case 47:
+                try {
+                    if (_f && !_f.done && (_k = _e["return"])) _k.call(_e);
+                }
+                finally { if (e_4) throw e_4.error; }
+                return [7 /*endfinally*/];
+            case 48: return [4 /*yield*/, doubleSign()];
+            case 49:
+                res = _l.sent();
                 if (res.retCode === 0) {
                     console.log('双签成功');
                 }
                 else {
                     console.log('双签失败', res);
                 }
-                return [3 /*break*/, 41];
-            case 40:
-                e_4 = _h.sent();
-                console.log(e_4);
-                return [3 /*break*/, 41];
-            case 41: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(3000)];
-            case 42:
-                _h.sent();
-                _h.label = 43;
-            case 43:
+                return [3 /*break*/, 51];
+            case 50:
+                e_5 = _l.sent();
+                console.log(e_5);
+                return [3 /*break*/, 51];
+            case 51: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(3000)];
+            case 52:
+                _l.sent();
+                _l.label = 53;
+            case 53:
                 i++;
                 return [3 /*break*/, 15];
-            case 44: return [2 /*return*/];
+            case 54: return [2 /*return*/];
         }
     });
 }); })();
@@ -318,7 +357,7 @@ function api(fn, stk, params) {
     var _this = this;
     if (params === void 0) { params = {}; }
     return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-        var url, data, e_5;
+        var url, data, e_6;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -349,8 +388,8 @@ function api(fn, stk, params) {
                     }
                     return [3 /*break*/, 4];
                 case 3:
-                    e_5 = _a.sent();
-                    reject(e_5);
+                    e_6 = _a.sent();
+                    reject(e_6);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
@@ -359,7 +398,7 @@ function api(fn, stk, params) {
 }
 function doubleSign() {
     return __awaiter(this, void 0, void 0, function () {
-        var data, e_6;
+        var data, e_7;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -378,8 +417,8 @@ function doubleSign() {
                     data = (_a.sent()).data;
                     return [2 /*return*/, data];
                 case 2:
-                    e_6 = _a.sent();
-                    console.log(e_6);
+                    e_7 = _a.sent();
+                    console.log(e_7);
                     return [2 /*return*/, ''];
                 case 3: return [2 /*return*/];
             }
