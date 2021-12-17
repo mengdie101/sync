@@ -40,6 +40,7 @@ jobs:
         rm -rf ./backUp
         rm `ls *.js|egrep -v sendNotify.js`
         sed -i 's#/test##g' ./jd_喂猪.ts
+        rm jd_speed_redEnvelope.ts
         sudo npm install
         tsc
         sed -i 's/sendNotify_1/notify/g' *.js
