@@ -50,74 +50,93 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
 exports.__esModule = true;
 var axios_1 = require("axios");
 var path = require("path");
 var date_fns_1 = require("date-fns");
 var notify = require("./sendNotify");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
-var cookie = '', res = '', UserName, index;
+var cookie = '', res = '', UserName;
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, except, i, productionId, factoryId, investedElectric, needElectric, progress, flag, j, _a, _b, t, e_1_1, j;
-    var e_1, _c;
-    return __generator(this, function (_d) {
-        switch (_d.label) {
+    var cookiesArr, except, _a, _b, _c, index, value, productionId, factoryId, investedElectric, needElectric, progress, flag, j, _d, _e, t, e_1_1, j, e_2_1;
+    var e_2, _f, e_1, _g;
+    return __generator(this, function (_h) {
+        switch (_h.label) {
             case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.requestAlgo)(10001)];
             case 1:
-                _d.sent();
+                _h.sent();
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
             case 2:
-                cookiesArr = _d.sent();
+                cookiesArr = _h.sent();
                 except = (0, TS_USER_AGENTS_1.exceptCookie)(path.basename(__filename));
-                i = 0;
-                _d.label = 3;
+                _h.label = 3;
             case 3:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 36];
-                cookie = cookiesArr[i];
+                _h.trys.push([3, 38, 39, 40]);
+                _a = __values(cookiesArr.entries()), _b = _a.next();
+                _h.label = 4;
+            case 4:
+                if (!!_b.done) return [3 /*break*/, 37];
+                _c = __read(_b.value, 2), index = _c[0], value = _c[1];
+                cookie = value;
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
-                index = i + 1;
-                console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7".concat(index, "\u3011").concat(UserName, "\n"));
+                console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7".concat(index + 1, "\u3011").concat(UserName, "\n"));
                 if (except.includes(encodeURIComponent(UserName))) {
                     console.log('已设置跳过');
-                    return [3 /*break*/, 35];
+                    return [3 /*break*/, 36];
                 }
                 return [4 /*yield*/, api('userinfo/GetUserInfo', '_time,materialTuanId,materialTuanPin,needPickSiteInfo,pin,sharePin,shareType,source,zone', { pin: '', sharePin: '', shareType: '', materialTuanPin: '', materialTuanId: '', needPickSiteInfo: 0, source: '' })];
-            case 4:
-                res = _d.sent();
-                productionId = 0, factoryId = 0;
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
             case 5:
-                _d.sent();
+                res = _h.sent();
+                productionId = 0, factoryId = 0;
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
+            case 6:
+                _h.sent();
                 try {
                     productionId = res.data.productionList[0].productionId;
                     factoryId = res.data.factoryList[0].factoryId;
                     investedElectric = res.data.productionList[0].investedElectric, needElectric = res.data.productionList[0].needElectric, progress = (investedElectric / needElectric * 100).toFixed(2);
-                    console.log('生产进度:', progress);
+                    console.log('生产进度：', progress);
                     if (progress === '100.00') {
-                        (0, notify.sendNotify)("京喜工厂生产完成", "\u8D26\u53F7".concat(index, " ").concat(UserName));
-                        return [3 /*break*/, 35];
+                        (0, notify.sendNotify)("京喜工厂生产完成", "\u8D26\u53F7".concat(index + 1, " ").concat(UserName));
+                        return [3 /*break*/, 36];
                     }
                 }
                 catch (e) {
                     console.log('当前没有产品在生产');
-                    return [3 /*break*/, 35];
+                    return [3 /*break*/, 36];
                 }
-                if (!(res.data.productionStage.productionStageAwardStatus === 1)) return [3 /*break*/, 8];
+                if (!(res.data.productionStage.productionStageAwardStatus === 1)) return [3 /*break*/, 9];
                 return [4 /*yield*/, api('userinfo/DrawProductionStagePrize', '_time,productionId,zone', { productionId: productionId })];
-            case 6:
-                res = _d.sent();
-                console.log('打开红包:', res.data.active);
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 7:
-                _d.sent();
-                _d.label = 8;
-            case 8: return [4 /*yield*/, api('generator/QueryCurrentElectricityQuantity', '_time,factoryid,querytype,zone', { factoryid: factoryId, querytype: 1 })];
-            case 9:
-                // 收发电机
-                res = _d.sent();
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
+                res = _h.sent();
+                console.log('打开红包：', res.data.active);
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(4000)];
+            case 8:
+                _h.sent();
+                _h.label = 9;
+            case 9: return [4 /*yield*/, api('generator/QueryCurrentElectricityQuantity', '_time,factoryid,querytype,zone', { factoryid: factoryId, querytype: 1 })];
             case 10:
-                _d.sent();
+                // 收发电机
+                res = _h.sent();
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
+            case 11:
+                _h.sent();
                 flag = -1;
                 if (res.data.nextCollectDoubleFlag === 1) {
                     // 下次双倍
@@ -133,117 +152,128 @@ var cookie = '', res = '', UserName, index;
                     // 没有双倍，直接收
                     flag = 0;
                 }
-                if (!(flag !== -1)) return [3 /*break*/, 12];
+                if (!(flag !== -1)) return [3 /*break*/, 13];
                 return [4 /*yield*/, api('generator/CollectCurrentElectricity', '_time,apptoken,doubleflag,factoryid,pgtimestamp,phoneID,zone', { apptoken: '', pgtimestamp: '', phoneID: '', factoryid: factoryId, doubleflag: flag, timeStamp: 'undefined' })];
-            case 11:
-                res = _d.sent();
+            case 12:
+                res = _h.sent();
                 res.ret === 0
-                    ? console.log('发电机收取成功:', res.data.CollectElectricity)
-                    : console.log('发电机收取失败:', res);
-                _d.label = 12;
-            case 12: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)
+                    ? console.log('发电机收取成功：', res.data.CollectElectricity)
+                    : console.log('发电机收取失败：', res);
+                _h.label = 13;
+            case 13: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(4000)
                 // 投入电力
             ];
-            case 13:
-                _d.sent();
-                j = 0;
-                _d.label = 14;
             case 14:
-                if (!(j < 3)) return [3 /*break*/, 18];
-                return [4 /*yield*/, api('userinfo/InvestElectric', '_time,productionId,zone', { productionId: productionId })];
+                _h.sent();
+                j = 0;
+                _h.label = 15;
             case 15:
-                res = _d.sent();
+                if (!(j < 2)) return [3 /*break*/, 19];
+                return [4 /*yield*/, api('userinfo/InvestElectric', '_time,productionId,zone', { productionId: productionId })];
+            case 16:
+                res = _h.sent();
                 if (res.ret === 0) {
-                    console.log('投入电力:', res.data.investElectric);
+                    console.log('投入电力成功：', res.data.investElectric);
                 }
                 else {
-                    console.log('投入电力失败:', res);
-                    return [3 /*break*/, 18];
+                    console.log('投入电力失败：', res);
+                    return [3 /*break*/, 19];
                 }
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(3000)];
-            case 16:
-                _d.sent();
-                _d.label = 17;
             case 17:
+                _h.sent();
+                _h.label = 18;
+            case 18:
                 j++;
-                return [3 /*break*/, 14];
-            case 18: return [4 /*yield*/, api('friend/QueryHireReward', '_time,zone')];
-            case 19:
-                res = _d.sent();
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
+                return [3 /*break*/, 15];
+            case 19: return [4 /*yield*/, api('friend/QueryHireReward', '_time,zone')];
             case 20:
-                _d.sent();
-                _d.label = 21;
+                res = _h.sent();
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 21:
-                _d.trys.push([21, 27, 28, 29]);
-                _a = (e_1 = void 0, __values(res.data.hireReward)), _b = _a.next();
-                _d.label = 22;
+                _h.sent();
+                _h.label = 22;
             case 22:
-                if (!!_b.done) return [3 /*break*/, 26];
-                t = _b.value;
-                if (!(t.date !== (0, date_fns_1.format)(Date.now(), "yyyyMMdd"))) return [3 /*break*/, 25];
-                return [4 /*yield*/, api('friend/HireAward', '_time,date,type,zone', { date: t.date })];
+                _h.trys.push([22, 28, 29, 30]);
+                _d = (e_1 = void 0, __values(res.data.hireReward)), _e = _d.next();
+                _h.label = 23;
             case 23:
-                res = _d.sent();
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
+                if (!!_e.done) return [3 /*break*/, 27];
+                t = _e.value;
+                if (!(t.date !== (0, date_fns_1.format)(Date.now(), "yyyyMMdd"))) return [3 /*break*/, 26];
+                return [4 /*yield*/, api('friend/HireAward', '_time,date,type,zone', { date: t.date })];
             case 24:
-                _d.sent();
-                if (res.ret === 0)
-                    console.log('收取气泡成功:', t.electricityQuantity);
-                _d.label = 25;
+                res = _h.sent();
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 25:
-                _b = _a.next();
-                return [3 /*break*/, 22];
-            case 26: return [3 /*break*/, 29];
-            case 27:
-                e_1_1 = _d.sent();
-                e_1 = { error: e_1_1 };
-                return [3 /*break*/, 29];
+                _h.sent();
+                if (res.ret === 0)
+                    console.log('收取气泡成功：', t.electricityQuantity);
+                _h.label = 26;
+            case 26:
+                _e = _d.next();
+                return [3 /*break*/, 23];
+            case 27: return [3 /*break*/, 30];
             case 28:
+                e_1_1 = _h.sent();
+                e_1 = { error: e_1_1 };
+                return [3 /*break*/, 30];
+            case 29:
                 try {
-                    if (_b && !_b.done && (_c = _a["return"])) _c.call(_a);
+                    if (_e && !_e.done && (_g = _d["return"])) _g.call(_d);
                 }
                 finally { if (e_1) throw e_1.error; }
                 return [7 /*endfinally*/];
-            case 29:
+            case 30:
                 console.log('任务列表开始');
                 j = 0;
-                _d.label = 30;
-            case 30:
-                if (!(j < 30)) return [3 /*break*/, 34];
-                return [4 /*yield*/, task()];
+                _h.label = 31;
             case 31:
-                if ((_d.sent()) === 0) {
-                    return [3 /*break*/, 34];
-                }
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(4000)];
+                if (!(j < 5)) return [3 /*break*/, 35];
+                return [4 /*yield*/, task()];
             case 32:
-                _d.sent();
-                _d.label = 33;
+                if ((_h.sent()) === 0) {
+                    return [3 /*break*/, 35];
+                }
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(5000)];
             case 33:
-                j++;
-                return [3 /*break*/, 30];
+                _h.sent();
+                _h.label = 34;
             case 34:
-                console.log('任务列表结束');
-                _d.label = 35;
+                j++;
+                return [3 /*break*/, 31];
             case 35:
-                i++;
-                return [3 /*break*/, 3];
-            case 36: return [2 /*return*/];
+                console.log('任务列表结束');
+                _h.label = 36;
+            case 36:
+                _b = _a.next();
+                return [3 /*break*/, 4];
+            case 37: return [3 /*break*/, 40];
+            case 38:
+                e_2_1 = _h.sent();
+                e_2 = { error: e_2_1 };
+                return [3 /*break*/, 40];
+            case 39:
+                try {
+                    if (_b && !_b.done && (_f = _a["return"])) _f.call(_a);
+                }
+                finally { if (e_2) throw e_2.error; }
+                return [7 /*endfinally*/];
+            case 40: return [2 /*return*/];
         }
     });
 }); })();
 function task() {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, _b, t, e_2_1;
-        var e_2, _c;
+        var _a, _b, t, e_3_1;
+        var e_3, _c;
         return __generator(this, function (_d) {
             switch (_d.label) {
                 case 0: return [4 /*yield*/, api('GetUserTaskStatusList', '_time,bizCode,showAreaTaskFlag,source', { showAreaTaskFlag: 1, bizCode: 'dream_factory' })];
                 case 1:
                     res = _d.sent();
                     console.log('GetUserTaskStatusList: 刷新任务列表');
-                    return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
+                    return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(3000)];
                 case 2:
                     _d.sent();
                     _d.label = 3;
@@ -256,12 +286,12 @@ function task() {
                     t = _b.value;
                     if (!(t.awardStatus === 2)) return [3 /*break*/, 13];
                     if (!(t.completedTimes >= t.targetTimes)) return [3 /*break*/, 8];
-                    console.log('可领奖:', t.taskName);
+                    console.log('可领奖：', t.taskName);
                     return [4 /*yield*/, api('Award', '_time,bizCode,source,taskId', { taskId: t.taskId, bizCode: t.bizCode })];
                 case 5:
                     res = _d.sent();
                     if (!(res.ret === 0)) return [3 /*break*/, 7];
-                    console.log('领奖成功:', res.data.prizeInfo.trim() * 1);
+                    console.log('领奖成功：', res.data.prizeInfo.trim() * 1);
                     return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(4000)];
                 case 6:
                     _d.sent();
@@ -271,7 +301,7 @@ function task() {
                     return [2 /*return*/, 0];
                 case 8:
                     if (!(t.dateType === 2 && t.completedTimes < t.targetTimes && [2, 6, 9].indexOf(t.taskType) > -1)) return [3 /*break*/, 13];
-                    console.log('任务开始:', t.taskName);
+                    console.log('任务开始：', t.taskName);
                     return [4 /*yield*/, api('DoTask', '_time,bizCode,configExtra,source,taskId', { configExtra: '', taskId: t.taskId, bizCode: t.bizCode })];
                 case 9:
                     res = _d.sent();
@@ -285,21 +315,21 @@ function task() {
                     _d.sent();
                     return [2 /*return*/, 1];
                 case 12:
-                    console.log('任务失败:');
+                    console.log('任务失败');
                     return [2 /*return*/, 0];
                 case 13:
                     _b = _a.next();
                     return [3 /*break*/, 4];
                 case 14: return [3 /*break*/, 17];
                 case 15:
-                    e_2_1 = _d.sent();
-                    e_2 = { error: e_2_1 };
+                    e_3_1 = _d.sent();
+                    e_3 = { error: e_3_1 };
                     return [3 /*break*/, 17];
                 case 16:
                     try {
                         if (_b && !_b.done && (_c = _a["return"])) _c.call(_a);
                     }
-                    finally { if (e_2) throw e_2.error; }
+                    finally { if (e_3) throw e_3.error; }
                     return [7 /*endfinally*/];
                 case 17: return [2 /*return*/, 0];
             }
