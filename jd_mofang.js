@@ -50,7 +50,6 @@ exports.__esModule = true;
 var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
 var cookie = '', res = '', UserName, index;
-var shareCodeSelf = [];
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
     var cookiesArr, i, sign, _a, _b, t, signDay, type, _c, _d, proInfo, e_1_1, _e, _f, proInfo, e_2_1, _g, _h, proInfo, e_3_1, _j, _k, proInfo, e_4_1, e_5_1;
     var e_5, _l, e_1, _m, e_2, _o, e_3, _p, e_4, _q;
@@ -75,7 +74,6 @@ var shareCodeSelf = [];
                 return [4 /*yield*/, api("functionId=queryInteractiveInfo&body=%7B%22encryptProjectId%22%3A%22".concat(sign, "%22%2C%22sourceCode%22%3A%22acexinpin0823%22%2C%22ext%22%3A%7B%7D%7D&client=wh5&clientVersion=1.0.0&appid=content_ecology"))];
             case 4:
                 res = _w.sent();
-                (0, TS_USER_AGENTS_1.o2s)(res);
                 _w.label = 5;
             case 5:
                 _w.trys.push([5, 45, 46, 47]);
@@ -93,7 +91,7 @@ var shareCodeSelf = [];
                 return [4 /*yield*/, api("functionId=doInteractiveAssignment&body=%7B%22encryptProjectId%22%3A%22".concat(sign, "%22%2C%22encryptAssignmentId%22%3A%22").concat(t.encryptAssignmentId, "%22%2C%22sourceCode%22%3A%22acexinpin0823%22%2C%22itemId%22%3A%221%22%2C%22actionType%22%3A%22%22%2C%22completionFlag%22%3A%22%22%2C%22ext%22%3A%7B%7D%7D&client=wh5&clientVersion=1.0.0&appid=content_ecology"))];
             case 7:
                 res = _w.sent();
-                console.log('签到成功', JSON.stringify(res));
+                console.log('签到成功', res);
                 return [3 /*break*/, 9];
             case 8:
                 console.log('已签到');
@@ -110,7 +108,7 @@ var shareCodeSelf = [];
                 return [4 /*yield*/, api("functionId=doInteractiveAssignment&body=".concat(encodeURIComponent(JSON.stringify({ "encryptProjectId": sign, "encryptAssignmentId": t.encryptAssignmentId, "sourceCode": "acexinpin0823", "itemId": proInfo.itemId, "actionType": 0, "completionFlag": "", "ext": {}, "extParam": { "businessData": { "random": (0, TS_USER_AGENTS_1.getRandomNumberByRange)(25468465, 87465139) }, "signStr": "".concat(Date.now(), "~0heuagd"), "sceneid": "XMFhPageh5" } })), "&client=wh5&clientVersion=1.0.0&appid=content_ecology"))];
             case 11:
                 res = _w.sent();
-                (0, TS_USER_AGENTS_1.o2s)(res);
+                console.log(res.msg);
                 _w.label = 12;
             case 12:
                 _d = _c.next();
@@ -135,17 +133,17 @@ var shareCodeSelf = [];
                 proInfo = _f.value;
                 if (!(proInfo.status === 1)) return [3 /*break*/, 21];
                 console.log(t.assignmentName);
-                return [4 /*yield*/, api("functionId=doInteractiveAssignment&body=".concat(encodeURIComponent(JSON.stringify({ "encryptProjectId": sign, "encryptAssignmentId": t.encryptAssignmentId, "sourceCode": "acexinpin0823", "itemId": proInfo.itemId, "actionType": 1, "completionFlag": "", "ext": {}, "extParam": { "businessData": { "random": (0, TS_USER_AGENTS_1.getRandomNumberByRange)(25468465, 87465135) }, "signStr": "".concat(Date.now(), "~1hj9fq9"), "sceneid": "XMFhPageh5" } })), "&client=wh5&clientVersion=1.0.0&appid=content_ecology"))];
+                return [4 /*yield*/, api("functionId=doInteractiveAssignment&body=".concat(encodeURIComponent(JSON.stringify({ "encryptProjectId": sign, "encryptAssignmentId": t.encryptAssignmentId, "sourceCode": "acexinpin0823", "itemId": proInfo.itemId, "actionType": 1, "completionFlag": "", "ext": {}, "extParam": { "businessData": { "random": (0, TS_USER_AGENTS_1.getRandomNumberByRange)(25468465, 87465135) }, "signStr": "".concat(Date.now(), "~05a4d1h"), "sceneid": "XMFhPageh5" } })), "&client=wh5&clientVersion=1.0.0&appid=content_ecology"))];
             case 18:
                 res = _w.sent();
-                (0, TS_USER_AGENTS_1.o2s)(res);
+                console.log(res.msg);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(t.ext.waitDuration * 1000)];
             case 19:
                 _w.sent();
-                return [4 /*yield*/, api("functionId=doInteractiveAssignment&body=".concat(encodeURIComponent(JSON.stringify({ "encryptProjectId": sign, "encryptAssignmentId": t.encryptAssignmentId, "sourceCode": "acexinpin0823", "itemId": proInfo.itemId, "actionType": 0, "completionFlag": "", "ext": {}, "extParam": { "businessData": { "random": (0, TS_USER_AGENTS_1.getRandomNumberByRange)(25468465, 87465135) }, "signStr": "".concat(Date.now(), "~1hj9fq9"), "sceneid": "XMFhPageh5" } })), "&client=wh5&clientVersion=1.0.0&appid=content_ecology"))];
+                return [4 /*yield*/, api("functionId=doInteractiveAssignment&body=".concat(encodeURIComponent(JSON.stringify({ "encryptProjectId": sign, "encryptAssignmentId": t.encryptAssignmentId, "sourceCode": "acexinpin0823", "itemId": proInfo.itemId, "actionType": 0, "completionFlag": "", "ext": {}, "extParam": { "businessData": { "random": (0, TS_USER_AGENTS_1.getRandomNumberByRange)(25468465, 87465135) }, "signStr": "".concat(Date.now(), "~05a4d1h"), "sceneid": "XMFhPageh5" } })), "&client=wh5&clientVersion=1.0.0&appid=content_ecology"))];
             case 20:
                 res = _w.sent();
-                (0, TS_USER_AGENTS_1.o2s)(res);
+                console.log(res.msg);
                 _w.label = 21;
             case 21:
                 _f = _e.next();
@@ -173,14 +171,14 @@ var shareCodeSelf = [];
                 return [4 /*yield*/, api("functionId=doInteractiveAssignment&body=%7B%22encryptProjectId%22%3A%22".concat(sign, "%22%2C%22encryptAssignmentId%22%3A%22").concat(t.encryptAssignmentId, "%22%2C%22sourceCode%22%3A%22acexinpin0823%22%2C%22itemId%22%3A%22").concat(proInfo.itemId, "%22%2C%22actionType%22%3A1%2C%22completionFlag%22%3A%22%22%2C%22ext%22%3A%7B%7D%7D&client=wh5&clientVersion=1.0.0&appid=content_ecology"))];
             case 27:
                 res = _w.sent();
-                (0, TS_USER_AGENTS_1.o2s)(res);
+                console.log(res.msg);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(t.ext.waitDuration * 1000)];
             case 28:
                 _w.sent();
                 return [4 /*yield*/, api("functionId=doInteractiveAssignment&body=%7B%22encryptProjectId%22%3A%22".concat(sign, "%22%2C%22encryptAssignmentId%22%3A%22").concat(t.encryptAssignmentId, "%22%2C%22sourceCode%22%3A%22acexinpin0823%22%2C%22itemId%22%3A%22").concat(proInfo.itemId, "%22%2C%22actionType%22%3A0%2C%22completionFlag%22%3A%22%22%2C%22ext%22%3A%7B%7D%7D&client=wh5&clientVersion=1.0.0&appid=content_ecology"))];
             case 29:
                 res = _w.sent();
-                (0, TS_USER_AGENTS_1.o2s)(res);
+                console.log(res.msg);
                 _w.label = 30;
             case 30:
                 _h = _g.next();
@@ -208,7 +206,7 @@ var shareCodeSelf = [];
                 return [4 /*yield*/, api("functionId=doInteractiveAssignment&body=".concat(encodeURIComponent(JSON.stringify({ "encryptProjectId": sign, "encryptAssignmentId": t.encryptAssignmentId, "sourceCode": "acexinpin0823", "itemId": proInfo.itemId, "actionType": "0", "completionFlag": "", "ext": {}, "extParam": { "businessData": { "random": (0, TS_USER_AGENTS_1.getRandomNumberByRange)(25468465, 87465135) }, "signStr": "".concat(Date.now(), "~1nvhqmd"), "sceneid": "XMFJGh5" } })), "&client=wh5&clientVersion=1.0.0&appid=content_ecology"))];
             case 36:
                 res = _w.sent();
-                (0, TS_USER_AGENTS_1.o2s)(res);
+                console.log(res.msg);
                 _w.label = 37;
             case 37:
                 _k = _j.next();
