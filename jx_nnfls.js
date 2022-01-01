@@ -136,7 +136,6 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [];
             case 6:
                 if (!!_b.done) return [3 /*break*/, 12];
                 t = _b.value;
-                // if (tasks.includes(t.taskId) && t.taskState === 1) {
                 console.log(t.taskName);
                 return [4 /*yield*/, api('task/drawUserTask', 'sceneval,taskid', { taskid: t.taskId })];
             case 7:
@@ -148,9 +147,7 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [];
             case 9:
                 res = _e.sent();
                 (0, TS_USER_AGENTS_1.o2s)(res);
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)
-                    // }
-                ];
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 10:
                 _e.sent();
                 _e.label = 11;
