@@ -433,7 +433,7 @@ var shareCodesSelf = [], shareCodesHW = [];
                 _z.sent();
                 _z.label = 79;
             case 79:
-                if (!(coins >= 5000)) return [3 /*break*/, 82];
+                if (!(coins >= 5000 && food <= 500)) return [3 /*break*/, 82];
                 return [4 /*yield*/, api('operservice/Buy', 'activeid,activekey,channel,jxmc_jstoken,phoneid,sceneid,timestamp,type', { type: '1' })];
             case 80:
                 res = _z.sent();
