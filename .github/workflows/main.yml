@@ -39,7 +39,7 @@ jobs:
         cd ./JDHelloWorld
         rm -rf ./backUp
         rm `ls *.js|egrep -v sendNotify.js`
-        rm jd_speed_redEnvelope.ts jd_喂猪.ts jd_jxScore.ts jd_city1.ts
+        rm jd_speed_redEnvelope.ts jd_喂猪.ts jd_jxScore.ts jd_city1.ts 2> /dev/null
         sudo npm install
         tsc
         sed -i 's/sendNotify_1/notify/g' *.js
