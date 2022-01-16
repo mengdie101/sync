@@ -83,6 +83,7 @@ exports.__esModule = true;
 var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
 var cookie = '', res = '', shareCodes = [], UserName = '', shareCodesSelf = [], shareCodesHW = [];
+var cards = {};
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
     var cookiesArr, _a, _b, _c, index, value, _d, _e, tab, taskGroupId, _f, _g, t, i, sleep, e_1_1, e_2_1, e_3, e_4_1, _h, _j, _k, index, value, temp, shareCodes_1, shareCodes_1_1, code, e_5_1, e_6, e_7_1, _l, _m, _o, index, value, lotteryNum, i, e_8, e_9_1;
     var e_4, _p, e_2, _q, e_1, _r, e_7, _s, e_5, _t, e_9, _u;
@@ -337,6 +338,7 @@ var cookie = '', res = '', shareCodes = [], UserName = '', shareCodesSelf = [], 
             case 61:
                 res = _x.sent();
                 lotteryNum = res.data.lotteryNum;
+                console.log('抽奖次数：', lotteryNum);
                 i = 0;
                 _x.label = 62;
             case 62:
@@ -344,7 +346,7 @@ var cookie = '', res = '', shareCodes = [], UserName = '', shareCodesSelf = [], 
                 return [4 /*yield*/, api({ "apiMapping": "/api/lottery/lottery" })];
             case 63:
                 res = _x.sent();
-                console.log('抽奖：', res.data.prizeName);
+                console.log('抽奖', i + 1, '/', lotteryNum, res.data.prizeName);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(4000)];
             case 64:
                 _x.sent();
