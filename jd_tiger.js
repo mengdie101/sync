@@ -84,8 +84,8 @@ var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
 var cookie = '', res = '', shareCodes = [], UserName = '', shareCodesSelf = [], shareCodesHW = [];
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, _a, _b, _c, index, value, _d, _e, tab, taskGroupId, _f, _g, t, i, sleep, e_1_1, e_2_1, e_3_1, _h, _j, _k, index, value, temp, shareCodes_1, shareCodes_1_1, code, e_4_1, e_5_1, _l, _m, _o, index, value, lotteryNum, i, e_6_1;
-    var e_3, _p, e_2, _q, e_1, _r, e_5, _s, e_4, _t, e_6, _u;
+    var cookiesArr, _a, _b, _c, index, value, _d, _e, tab, taskGroupId, _f, _g, t, i, sleep, e_1_1, e_2_1, e_3, e_4_1, _h, _j, _k, index, value, temp, shareCodes_1, shareCodes_1_1, code, e_5_1, e_6, e_7_1, _l, _m, _o, index, value, lotteryNum, i, e_8, e_9_1;
+    var e_4, _p, e_2, _q, e_1, _r, e_7, _s, e_5, _t, e_9, _u;
     var _v, _w;
     return __generator(this, function (_x) {
         switch (_x.label) {
@@ -98,164 +98,175 @@ var cookie = '', res = '', shareCodes = [], UserName = '', shareCodesSelf = [], 
                 }
                 _x.label = 2;
             case 2:
-                _x.trys.push([2, 33, 34, 35]);
+                _x.trys.push([2, 36, 37, 38]);
                 _a = __values(cookiesArr.entries()), _b = _a.next();
                 _x.label = 3;
             case 3:
-                if (!!_b.done) return [3 /*break*/, 32];
+                if (!!_b.done) return [3 /*break*/, 35];
                 _c = __read(_b.value, 2), index = _c[0], value = _c[1];
                 cookie = value;
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7".concat(index + 1, "\u3011").concat(UserName, "\n"));
-                return [4 /*yield*/, api({ "apiMapping": "/api/task/support/getShareId" })];
+                _x.label = 4;
             case 4:
+                _x.trys.push([4, 33, , 34]);
+                return [4 /*yield*/, api({ "apiMapping": "/api/task/support/getShareId" })];
+            case 5:
                 res = _x.sent();
                 console.log('助力码：', res.data);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
-            case 5:
+            case 6:
                 _x.sent();
                 shareCodesSelf.push(res.data);
                 return [4 /*yield*/, api({ "apiMapping": "/api/task/support/list" })];
-            case 6:
+            case 7:
                 res = _x.sent();
                 console.log('收到助力：', res.data.supportedNum);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
-            case 7:
+            case 8:
                 _x.sent();
                 return [4 /*yield*/, api({ "apiMapping": "/api/task/brand/tabs" })];
-            case 8:
+            case 9:
                 res = _x.sent();
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
-            case 9:
-                _x.sent();
-                _x.label = 10;
             case 10:
-                _x.trys.push([10, 29, 30, 31]);
-                _d = (e_2 = void 0, __values(res.data)), _e = _d.next();
+                _x.sent();
                 _x.label = 11;
             case 11:
-                if (!!_e.done) return [3 /*break*/, 28];
+                _x.trys.push([11, 30, 31, 32]);
+                _d = (e_2 = void 0, __values(res.data)), _e = _d.next();
+                _x.label = 12;
+            case 12:
+                if (!!_e.done) return [3 /*break*/, 29];
                 tab = _e.value;
                 taskGroupId = tab.taskGroupId;
                 return [4 /*yield*/, api({ "taskGroupId": taskGroupId, "apiMapping": "/api/task/brand/getTaskList" })];
-            case 12:
-                res = _x.sent();
-                _x.label = 13;
             case 13:
-                _x.trys.push([13, 25, 26, 27]);
-                _f = (e_1 = void 0, __values(res.data)), _g = _f.next();
+                res = _x.sent();
                 _x.label = 14;
             case 14:
-                if (!!_g.done) return [3 /*break*/, 24];
-                t = _g.value;
-                i = t.finishNum;
+                _x.trys.push([14, 26, 27, 28]);
+                _f = (e_1 = void 0, __values(res.data)), _g = _f.next();
                 _x.label = 15;
             case 15:
-                if (!(i < t.totalNum)) return [3 /*break*/, 23];
-                return [4 /*yield*/, getTaskDetail(taskGroupId)];
+                if (!!_g.done) return [3 /*break*/, 25];
+                t = _g.value;
+                i = t.finishNum;
+                _x.label = 16;
             case 16:
+                if (!(i < t.totalNum)) return [3 /*break*/, 24];
+                return [4 /*yield*/, getTaskDetail(taskGroupId)];
+            case 17:
                 res = _x.sent();
-                if (!res) return [3 /*break*/, 22];
+                if (!res) return [3 /*break*/, 23];
                 console.log(taskGroupId, res.taskId, res.taskItemId, res.taskType, res.taskItemName);
                 sleep = res.browseTime ? res.browseTime * 1000 : 1000;
                 return [4 /*yield*/, api({ "taskGroupId": taskGroupId, "taskId": res.taskId, "taskItemId": res.taskItemId, "apiMapping": "/api/task/brand/doTask" })];
-            case 17:
+            case 18:
                 res = _x.sent();
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(sleep)];
-            case 18:
-                _x.sent();
-                if (!(res.data.taskType === 'BROWSE_TASK')) return [3 /*break*/, 21];
-                return [4 /*yield*/, api({ "taskGroupId": taskGroupId, "taskId": res.data.taskId, "taskItemId": res.data.taskItemId, "timestamp": res.data.timeStamp, "apiMapping": "/api/task/brand/getReward" })];
             case 19:
+                _x.sent();
+                if (!(res.data.taskType === 'BROWSE_TASK')) return [3 /*break*/, 22];
+                return [4 /*yield*/, api({ "taskGroupId": taskGroupId, "taskId": res.data.taskId, "taskItemId": res.data.taskItemId, "timestamp": res.data.timeStamp, "apiMapping": "/api/task/brand/getReward" })];
+            case 20:
                 res = _x.sent();
                 console.log('任务完成，积分：', res.data.integral, '，京豆：', res.data.jbean);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
-            case 20:
-                _x.sent();
-                return [3 /*break*/, 22];
             case 21:
+                _x.sent();
+                return [3 /*break*/, 23];
+            case 22:
                 if (res.data.taskType === 'FOLLOW_SHOP_TASK') {
                     // console.log('任务完成，获得：', res.data.rewardInfoVo?.integral, res.data.rewardInfoVo?.jbean)
                     console.log(res.data.rewardInfoVo);
                 }
-                _x.label = 22;
-            case 22:
-                i++;
-                return [3 /*break*/, 15];
+                _x.label = 23;
             case 23:
+                i++;
+                return [3 /*break*/, 16];
+            case 24:
                 _g = _f.next();
-                return [3 /*break*/, 14];
-            case 24: return [3 /*break*/, 27];
-            case 25:
+                return [3 /*break*/, 15];
+            case 25: return [3 /*break*/, 28];
+            case 26:
                 e_1_1 = _x.sent();
                 e_1 = { error: e_1_1 };
-                return [3 /*break*/, 27];
-            case 26:
+                return [3 /*break*/, 28];
+            case 27:
                 try {
                     if (_g && !_g.done && (_r = _f["return"])) _r.call(_f);
                 }
                 finally { if (e_1) throw e_1.error; }
                 return [7 /*endfinally*/];
-            case 27:
+            case 28:
                 _e = _d.next();
-                return [3 /*break*/, 11];
-            case 28: return [3 /*break*/, 31];
-            case 29:
+                return [3 /*break*/, 12];
+            case 29: return [3 /*break*/, 32];
+            case 30:
                 e_2_1 = _x.sent();
                 e_2 = { error: e_2_1 };
-                return [3 /*break*/, 31];
-            case 30:
+                return [3 /*break*/, 32];
+            case 31:
                 try {
                     if (_e && !_e.done && (_q = _d["return"])) _q.call(_d);
                 }
                 finally { if (e_2) throw e_2.error; }
                 return [7 /*endfinally*/];
-            case 31:
+            case 32: return [3 /*break*/, 34];
+            case 33:
+                e_3 = _x.sent();
+                console.log('黑号？', e_3);
+                return [3 /*break*/, 34];
+            case 34:
                 _b = _a.next();
                 return [3 /*break*/, 3];
-            case 32: return [3 /*break*/, 35];
-            case 33:
-                e_3_1 = _x.sent();
-                e_3 = { error: e_3_1 };
-                return [3 /*break*/, 35];
-            case 34:
+            case 35: return [3 /*break*/, 38];
+            case 36:
+                e_4_1 = _x.sent();
+                e_4 = { error: e_4_1 };
+                return [3 /*break*/, 38];
+            case 37:
                 try {
                     if (_b && !_b.done && (_p = _a["return"])) _p.call(_a);
                 }
-                finally { if (e_3) throw e_3.error; }
+                finally { if (e_4) throw e_4.error; }
                 return [7 /*endfinally*/];
-            case 35:
-                _x.trys.push([35, 50, 51, 52]);
+            case 38:
+                _x.trys.push([38, 56, 57, 58]);
                 _h = __values(cookiesArr.entries()), _j = _h.next();
-                _x.label = 36;
-            case 36:
-                if (!!_j.done) return [3 /*break*/, 49];
+                _x.label = 39;
+            case 39:
+                if (!!_j.done) return [3 /*break*/, 55];
                 _k = __read(_j.value, 2), index = _k[0], value = _k[1];
                 cookie = value;
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
+                _x.label = 40;
+            case 40:
+                _x.trys.push([40, 53, , 54]);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.getShareCodePool)('tiger', 30)];
-            case 37:
+            case 41:
                 temp = _x.sent();
-                if (!(shareCodesHW.length === 0)) return [3 /*break*/, 39];
+                if (!(shareCodesHW.length === 0)) return [3 /*break*/, 43];
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.getshareCodeHW)('tiger')];
-            case 38:
+            case 42:
                 shareCodesHW = _x.sent();
-                _x.label = 39;
-            case 39:
+                _x.label = 43;
+            case 43:
                 index === 0
                     ? shareCodes = Array.from(new Set(__spreadArray(__spreadArray(__spreadArray([], __read(shareCodesHW), false), __read(shareCodesSelf), false), __read(temp), false)))
                     : shareCodes = Array.from(new Set(__spreadArray(__spreadArray(__spreadArray([], __read(shareCodesSelf), false), __read(shareCodesHW), false), __read(temp), false)));
-                _x.label = 40;
-            case 40:
-                _x.trys.push([40, 46, 47, 48]);
-                shareCodes_1 = (e_4 = void 0, __values(shareCodes)), shareCodes_1_1 = shareCodes_1.next();
-                _x.label = 41;
-            case 41:
-                if (!!shareCodes_1_1.done) return [3 /*break*/, 45];
+                _x.label = 44;
+            case 44:
+                _x.trys.push([44, 50, 51, 52]);
+                shareCodes_1 = (e_5 = void 0, __values(shareCodes)), shareCodes_1_1 = shareCodes_1.next();
+                _x.label = 45;
+            case 45:
+                if (!!shareCodes_1_1.done) return [3 /*break*/, 49];
                 code = shareCodes_1_1.value;
                 console.log("\u8D26\u53F7".concat(index + 1, " \u53BB\u52A9\u529B ").concat(code, " ").concat(shareCodesSelf.includes(code) ? '(内部)' : ''));
                 return [4 /*yield*/, api({ "shareId": code, "apiMapping": "/api/task/support/doSupport" })];
-            case 42:
+            case 46:
                 res = _x.sent();
                 if (res.data.status === 1) {
                     !res.data.supporterPrize
@@ -264,7 +275,7 @@ var cookie = '', res = '', shareCodes = [], UserName = '', shareCodesSelf = [], 
                 }
                 else if (res.data.status === 7) {
                     console.log('上限');
-                    return [3 /*break*/, 45];
+                    return [3 /*break*/, 49];
                 }
                 else if (res.data.status === 3) {
                     console.log('已助力过');
@@ -273,26 +284,12 @@ var cookie = '', res = '', shareCodes = [], UserName = '', shareCodesSelf = [], 
                     console.log('其他情况', res.data.status);
                 }
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
-            case 43:
-                _x.sent();
-                _x.label = 44;
-            case 44:
-                shareCodes_1_1 = shareCodes_1.next();
-                return [3 /*break*/, 41];
-            case 45: return [3 /*break*/, 48];
-            case 46:
-                e_4_1 = _x.sent();
-                e_4 = { error: e_4_1 };
-                return [3 /*break*/, 48];
             case 47:
-                try {
-                    if (shareCodes_1_1 && !shareCodes_1_1.done && (_t = shareCodes_1["return"])) _t.call(shareCodes_1);
-                }
-                finally { if (e_4) throw e_4.error; }
-                return [7 /*endfinally*/];
+                _x.sent();
+                _x.label = 48;
             case 48:
-                _j = _h.next();
-                return [3 /*break*/, 36];
+                shareCodes_1_1 = shareCodes_1.next();
+                return [3 /*break*/, 45];
             case 49: return [3 /*break*/, 52];
             case 50:
                 e_5_1 = _x.sent();
@@ -300,54 +297,81 @@ var cookie = '', res = '', shareCodes = [], UserName = '', shareCodesSelf = [], 
                 return [3 /*break*/, 52];
             case 51:
                 try {
-                    if (_j && !_j.done && (_s = _h["return"])) _s.call(_h);
+                    if (shareCodes_1_1 && !shareCodes_1_1.done && (_t = shareCodes_1["return"])) _t.call(shareCodes_1);
                 }
                 finally { if (e_5) throw e_5.error; }
                 return [7 /*endfinally*/];
-            case 52:
-                _x.trys.push([52, 61, 62, 63]);
-                _l = __values(cookiesArr.entries()), _m = _l.next();
-                _x.label = 53;
+            case 52: return [3 /*break*/, 54];
             case 53:
-                if (!!_m.done) return [3 /*break*/, 60];
+                e_6 = _x.sent();
+                console.log('黑号？', e_6);
+                return [3 /*break*/, 54];
+            case 54:
+                _j = _h.next();
+                return [3 /*break*/, 39];
+            case 55: return [3 /*break*/, 58];
+            case 56:
+                e_7_1 = _x.sent();
+                e_7 = { error: e_7_1 };
+                return [3 /*break*/, 58];
+            case 57:
+                try {
+                    if (_j && !_j.done && (_s = _h["return"])) _s.call(_h);
+                }
+                finally { if (e_7) throw e_7.error; }
+                return [7 /*endfinally*/];
+            case 58:
+                _x.trys.push([58, 70, 71, 72]);
+                _l = __values(cookiesArr.entries()), _m = _l.next();
+                _x.label = 59;
+            case 59:
+                if (!!_m.done) return [3 /*break*/, 69];
                 _o = __read(_m.value, 2), index = _o[0], value = _o[1];
                 cookie = value;
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7".concat(index + 1, "\u3011").concat(UserName, "\n"));
+                _x.label = 60;
+            case 60:
+                _x.trys.push([60, 67, , 68]);
                 return [4 /*yield*/, api({ "apiMapping": "/api/index/indexInfo" })];
-            case 54:
+            case 61:
                 res = _x.sent();
                 lotteryNum = res.data.lotteryNum;
                 i = 0;
-                _x.label = 55;
-            case 55:
-                if (!(i < lotteryNum)) return [3 /*break*/, 59];
+                _x.label = 62;
+            case 62:
+                if (!(i < lotteryNum)) return [3 /*break*/, 66];
                 return [4 /*yield*/, api({ "apiMapping": "/api/lottery/lottery" })];
-            case 56:
+            case 63:
                 res = _x.sent();
                 console.log('抽奖：', res.data.prizeName);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(4000)];
-            case 57:
+            case 64:
                 _x.sent();
-                _x.label = 58;
-            case 58:
+                _x.label = 65;
+            case 65:
                 i++;
-                return [3 /*break*/, 55];
-            case 59:
+                return [3 /*break*/, 62];
+            case 66: return [3 /*break*/, 68];
+            case 67:
+                e_8 = _x.sent();
+                console.log('黑号？', e_8);
+                return [3 /*break*/, 68];
+            case 68:
                 _m = _l.next();
-                return [3 /*break*/, 53];
-            case 60: return [3 /*break*/, 63];
-            case 61:
-                e_6_1 = _x.sent();
-                e_6 = { error: e_6_1 };
-                return [3 /*break*/, 63];
-            case 62:
+                return [3 /*break*/, 59];
+            case 69: return [3 /*break*/, 72];
+            case 70:
+                e_9_1 = _x.sent();
+                e_9 = { error: e_9_1 };
+                return [3 /*break*/, 72];
+            case 71:
                 try {
                     if (_m && !_m.done && (_u = _l["return"])) _u.call(_l);
                 }
-                finally { if (e_6) throw e_6.error; }
+                finally { if (e_9) throw e_9.error; }
                 return [7 /*endfinally*/];
-            case 63: return [2 /*return*/];
+            case 72: return [2 /*return*/];
         }
     });
 }); })();
@@ -377,7 +401,7 @@ function api(body) {
 function getTaskDetail(taskGroupId) {
     return __awaiter(this, void 0, void 0, function () {
         var res, _a, _b, t;
-        var e_7, _c;
+        var e_10, _c;
         return __generator(this, function (_d) {
             switch (_d.label) {
                 case 0: return [4 /*yield*/, api({ "taskGroupId": taskGroupId, "apiMapping": "/api/task/brand/getTaskList" })];
@@ -394,12 +418,12 @@ function getTaskDetail(taskGroupId) {
                             }
                         }
                     }
-                    catch (e_7_1) { e_7 = { error: e_7_1 }; }
+                    catch (e_10_1) { e_10 = { error: e_10_1 }; }
                     finally {
                         try {
                             if (_b && !_b.done && (_c = _a["return"])) _c.call(_a);
                         }
-                        finally { if (e_7) throw e_7.error; }
+                        finally { if (e_10) throw e_10.error; }
                     }
                     return [2 /*return*/, ''];
             }
