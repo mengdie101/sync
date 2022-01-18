@@ -48,7 +48,6 @@ var __values = (this && this.__values) || function(o) {
 };
 exports.__esModule = true;
 exports.geth5st = exports.requestAlgo = void 0;
-var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
 var axios_1 = require("axios");
 var date_fns_1 = require("date-fns");
 var CryptoJS = require('crypto-js');
@@ -70,7 +69,7 @@ function getRandomIDPro() {
         i += e[(Math.random() * e.length) | 0];
     return i;
 }
-function requestAlgo(appId) {
+function requestAlgo(appId, USER_AGENT) {
     return __awaiter(this, void 0, void 0, function () {
         var s, a, u, c, ss, _a, _b, i, data;
         var e_1, _c;
@@ -105,7 +104,7 @@ function requestAlgo(appId) {
                                 "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
                                 'Origin': 'https://prodev.m.jd.com',
                                 'Referer': 'https://prodev.m.jd.com/',
-                                'User-Agent': TS_USER_AGENTS_1["default"]
+                                'User-Agent': USER_AGENT
                             }
                         })];
                 case 1:
