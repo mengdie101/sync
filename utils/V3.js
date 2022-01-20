@@ -70,6 +70,7 @@ function getRandomIDPro() {
     return i;
 }
 function requestAlgo(appId, USER_AGENT) {
+    if (USER_AGENT === void 0) { USER_AGENT = 'jdpingou;'; }
     return __awaiter(this, void 0, void 0, function () {
         var s, a, u, c, ss, _a, _b, i, data;
         var e_1, _c;
