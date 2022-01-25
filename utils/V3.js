@@ -46,10 +46,28 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
 exports.__esModule = true;
-exports.geth5st = exports.requestAlgo = void 0;
+exports.makeShareCodes = exports.get = exports.geth5st = exports.requestAlgo = void 0;
 var axios_1 = require("axios");
 var date_fns_1 = require("date-fns");
+var TS_USER_AGENTS_1 = require("../TS_USER_AGENTS");
+var ts_md5_1 = require("ts-md5");
 var CryptoJS = require('crypto-js');
 var fp = '', tk = '', genKey = null;
 function getRandomIDPro() {
@@ -129,3 +147,96 @@ function geth5st(t, appId) {
     return ["".concat(timestamp.toString()), "".concat(fp.toString()), "".concat(appId.toString()), "".concat(tk), "".concat(hash2), "3.0", "".concat(time.toString())].join(";");
 }
 exports.geth5st = geth5st;
+function get(fn, stk, params, jxToken, cookie, ua) {
+    if (ua === void 0) { ua = 'jdpingou;'; }
+    return __awaiter(this, void 0, void 0, function () {
+        var url, t, _a, _b, _c, key, value, h5st, data, e_2;
+        var e_3, _d;
+        return __generator(this, function (_e) {
+            switch (_e.label) {
+                case 0:
+                    t = [
+                        { key: 'activeid', value: 'jxmc_active_0001' },
+                        { key: 'activekey', value: 'null' },
+                        { key: 'channel', value: '7' },
+                        { key: 'jxmc_jstoken', value: jxToken.farm_jstoken },
+                        { key: 'phoneid', value: jxToken.phoneid },
+                        { key: 'sceneid', value: '1001' },
+                        { key: 'timestamp', value: jxToken.timestamp.toString() },
+                    ];
+                    if (['GetUserTaskStatusList', 'DoTask', 'Award'].indexOf(fn) > -1)
+                        url = "https://m.jingxi.com/newtasksys/newtasksys_front/".concat(fn, "?_=").concat(Date.now(), "&source=jxmc&bizCode=jxmc&_stk=").concat(encodeURIComponent(stk), "&_ste=1&sceneval=2&g_login_type=1&callback=jsonpCBK").concat((0, TS_USER_AGENTS_1.randomWord)(), "&g_ty=ls");
+                    else
+                        url = "https://m.jingxi.com/jxmc/".concat(fn, "?channel=7&sceneid=1001&activeid=jxmc_active_0001&activekey=null&jxmc_jstoken=").concat(jxToken.farm_jstoken, "&timestamp=").concat(jxToken.timestamp, "&phoneid=").concat(jxToken.phoneid, "&_stk=").concat(encodeURIComponent(stk), "&_ste=1&_=").concat(Date.now(), "&sceneval=2&g_login_type=1&callback=jsonpCBK").concat((0, TS_USER_AGENTS_1.randomWord)(), "&g_ty=ls");
+                    try {
+                        for (_a = __values(Object.entries(params)), _b = _a.next(); !_b.done; _b = _a.next()) {
+                            _c = __read(_b.value, 2), key = _c[0], value = _c[1];
+                            t.push({ key: key, value: value });
+                            url += "&".concat(key, "=").concat(value);
+                        }
+                    }
+                    catch (e_3_1) { e_3 = { error: e_3_1 }; }
+                    finally {
+                        try {
+                            if (_b && !_b.done && (_d = _a["return"])) _d.call(_a);
+                        }
+                        finally { if (e_3) throw e_3.error; }
+                    }
+                    h5st = geth5st(t, '00df8');
+                    url += "&h5st=".concat(h5st);
+                    _e.label = 1;
+                case 1:
+                    _e.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, axios_1["default"].get(url, {
+                            headers: {
+                                'Host': 'm.jingxi.com',
+                                'Accept': '*/*',
+                                'User-Agent': ua !== null && ua !== void 0 ? ua : 'jdpingou;',
+                                'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
+                                'Referer': 'https://st.jingxi.com/',
+                                'Cookie': cookie
+                            }
+                        })];
+                case 2:
+                    data = (_e.sent()).data;
+                    return [2 /*return*/, JSON.parse(data.match(/jsonpCBK.?\((.*)/)[1])];
+                case 3:
+                    e_2 = _e.sent();
+                    (0, TS_USER_AGENTS_1.o2s)(e_2);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.get = get;
+function makeShareCodes(code, cookie) {
+    return __awaiter(this, void 0, void 0, function () {
+        var bean, farm, pin, data, e_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 4, , 5]);
+                    return [4 /*yield*/, (0, TS_USER_AGENTS_1.getBeanShareCode)(cookie)];
+                case 1:
+                    bean = _a.sent();
+                    return [4 /*yield*/, (0, TS_USER_AGENTS_1.getFarmShareCode)(cookie)];
+                case 2:
+                    farm = _a.sent();
+                    pin = ts_md5_1.Md5.hashStr(cookie.match(/pt_pin=([^;]*)/)[1]);
+                    return [4 /*yield*/, axios_1["default"].get("https://api.jdsharecode.xyz/api/autoInsert/jxmc?sharecode=".concat(code, "&bean=").concat(bean, "&farm=").concat(farm, "&pin=").concat(pin))];
+                case 3:
+                    data = (_a.sent()).data;
+                    console.log(data.message);
+                    return [3 /*break*/, 5];
+                case 4:
+                    e_4 = _a.sent();
+                    console.log('自动提交失败');
+                    console.log(e_4);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.makeShareCodes = makeShareCodes;
