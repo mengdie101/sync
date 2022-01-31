@@ -161,14 +161,14 @@ process.env.HW_Priority === 'false' ? HW_Priority = false : '';
                 i = 0;
                 _h.label = 15;
             case 15:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 44];
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 43];
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 index = i + 1;
                 console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7".concat(index, "\u3011").concat(UserName, "\n"));
                 _h.label = 16;
             case 16:
-                _h.trys.push([16, 40, , 41]);
+                _h.trys.push([16, 39, , 40]);
                 return [4 /*yield*/, api('query', 'ispp,signhb_source,smp,tk,type', { signhb_source: 5, smp: '', ispp: 0, tk: '', type: 1 })];
             case 17:
                 // 宝箱任务
@@ -260,28 +260,19 @@ process.env.HW_Priority === 'false' ? HW_Priority = false : '';
                 }
                 finally { if (e_3) throw e_3.error; }
                 return [7 /*endfinally*/];
-            case 38: return [4 /*yield*/, doubleSign()];
+            case 38: return [3 /*break*/, 40];
             case 39:
-                res = _h.sent();
-                if (res.retCode === 0) {
-                    console.log('双签成功');
-                }
-                else {
-                    console.log('双签失败', res);
-                }
-                return [3 /*break*/, 41];
-            case 40:
                 e_4 = _h.sent();
                 console.log(e_4);
-                return [3 /*break*/, 41];
-            case 41: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(3000)];
-            case 42:
+                return [3 /*break*/, 40];
+            case 40: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(3000)];
+            case 41:
                 _h.sent();
-                _h.label = 43;
-            case 43:
+                _h.label = 42;
+            case 42:
                 i++;
                 return [3 /*break*/, 15];
-            case 44: return [2 /*return*/];
+            case 43: return [2 /*return*/];
         }
     });
 }); })();
@@ -311,29 +302,6 @@ function api(fn, stk, params) {
                 case 1:
                     data = (_a.sent()).data;
                     return [2 /*return*/, JSON.parse(data.match(/\((.*)/)[1])];
-            }
-        });
-    });
-}
-function doubleSign() {
-    return __awaiter(this, void 0, void 0, function () {
-        var data;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1["default"].get("https://m.jingxi.com/double_sign/IssueReward?sceneval=2&g_login_type=1&callback=jsonpCBK".concat((0, TS_USER_AGENTS_1.randomWord)(), "&g_ty=ls"), {
-                        headers: {
-                            'Host': 'm.jingxi.com',
-                            'Accept': '*/*',
-                            'Connection': 'keep-alive',
-                            'User-Agent': 'jdpingou;',
-                            'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
-                            'Referer': 'https://st.jingxi.com/',
-                            'Cookie': cookie
-                        }
-                    })];
-                case 1:
-                    data = (_a.sent()).data;
-                    return [2 /*return*/, JSON.parse(data.match(/jsonpCBK.?\((.*)/)[1])];
             }
         });
     });
