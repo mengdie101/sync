@@ -258,7 +258,7 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [], encPin = [];
                     console.log('助力成功');
                 }
                 else {
-                    console.log('error', res.resultCode);
+                    console.log('error', JSON.stringify(res));
                 }
                 return [3 /*break*/, 40];
             case 39:
