@@ -87,8 +87,9 @@ function getRandomIDPro() {
         i += e[(Math.random() * e.length) | 0];
     return i;
 }
-function requestAlgo(appId, USER_AGENT) {
+function requestAlgo(appId, USER_AGENT, fingerPrint) {
     if (USER_AGENT === void 0) { USER_AGENT = 'jdpingou;'; }
+    if (fingerPrint === void 0) { fingerPrint = ''; }
     return __awaiter(this, void 0, void 0, function () {
         var s, a, u, c, ss, _a, _b, i, data;
         var e_1, _c;
@@ -114,7 +115,7 @@ function requestAlgo(appId, USER_AGENT) {
                         }
                         finally { if (e_1) throw e_1.error; }
                     }
-                    fp = getRandomIDPro() + "" + s + getRandomIDPro() + c + "";
+                    fp = fingerPrint || getRandomIDPro() + "" + s + getRandomIDPro() + c + "";
                     return [4 /*yield*/, axios_1["default"].post("https://cactus.jd.com/request_algo?g_ty=ajax", "{\"version\":\"3.0\",\"fp\":\"".concat(fp, "\",\"appId\":\"").concat(appId, "\",\"timestamp\":").concat(Date.now(), ",\"platform\":\"web\",\"expandParams\":\"\"}"), {
                             headers: {
                                 'Accept': 'application/json',
@@ -143,7 +144,7 @@ function geth5st(t, appId) {
     var time = Date.now();
     var timestamp = (0, date_fns_1.format)(time, "yyyyMMddhhmmssSSS");
     var hash1 = genKey(tk, fp.toString(), timestamp.toString(), appId.toString(), CryptoJS).toString();
-    var hash2 = CryptoJS.HmacSHA256(a, hash1.toString()).toString();
+    var hash2 = CryptoJS.HmacSHA256(a, hash1).toString();
     return ["".concat(timestamp.toString()), "".concat(fp.toString()), "".concat(appId.toString()), "".concat(tk), "".concat(hash2), "3.0", "".concat(time.toString())].join(";");
 }
 exports.geth5st = geth5st;
