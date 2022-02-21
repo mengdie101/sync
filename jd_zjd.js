@@ -154,7 +154,8 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [], encPin = [];
             case 13: return [3 /*break*/, 21];
             case 14:
                 if (!(res.data.assistedRecords.length === res.data.assistNum)) return [3 /*break*/, 20];
-                console.log('已成团');
+                console.log('已成团', JSON.stringify(res));
+                if (!res.data.canStartNewAssist) return [3 /*break*/, 19];
                 return [4 /*yield*/, api('vvipclub_distributeBean_startAssist', { "activityIdEncrypted": res.data.id, "channel": "FISSION_BEAN" })];
             case 15:
                 res = _m.sent();
