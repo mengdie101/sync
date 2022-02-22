@@ -167,7 +167,7 @@ var cookie = '', UserName, allMessage = '', res = '';
                     else {
                         console.log('隐私保护，不显示日志');
                     }
-                    if (Object.keys(orders).indexOf(orderId) > -1 && orders[orderId]['status'] !== status_1) {
+                    if (!Object.keys(orders).includes(orderId) || orders[orderId]['status'] !== status_1) {
                         if (pushplusUser.includes(UserName)) {
                             console.log('+ pushplus');
                             markdown += "".concat(i++, ". ").concat(title, "\n\t- ").concat(carrier, "  ").concat(carriageId, "\n\t- ").concat(t, "  ").concat(status_1, "\n");
@@ -231,12 +231,28 @@ var cookie = '', UserName, allMessage = '', res = '';
                 finally { if (e_2) throw e_2.error; }
                 return [7 /*endfinally*/];
             case 21:
+                account = [];
+                try {
+                    account = JSON.parse((0, fs_1.readFileSync)('./utils/account.json').toString());
+                }
+                catch (e) {
+                    console.log('utils/account.json load failed');
+                }
+                // 删除已签收
+                Object.keys(orders).map(function (key) {
+                    if (orders[key].status.match(/(?=签收|已取走|已暂存)/)) {
+                        delete orders[key];
+                    }
+                    if (pushplusUser.includes(orders[key].user)) {
+                        orders[key].title = '******';
+                    }
+                });
+                // 替换通知中的用户名为备注
                 orders = JSON.stringify(orders, null, 2);
-                account = JSON.parse((0, fs_1.readFileSync)('./utils/account.json').toString() || '[]') || [];
                 try {
                     for (account_1 = __values(account), account_1_1 = account_1.next(); !account_1_1.done; account_1_1 = account_1.next()) {
                         acc = account_1_1.value;
-                        orders = orders.replace(new RegExp(decodeURIComponent(acc['pt_pin']), 'g'), acc['remarks']);
+                        orders = orders.replace(new RegExp(decodeURIComponent(acc.pt_pin), 'g'), acc.remarks);
                     }
                 }
                 catch (e_4_1) { e_4 = { error: e_4_1 }; }
