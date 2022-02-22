@@ -50,73 +50,62 @@ exports.__esModule = true;
 exports.pushplus = void 0;
 var axios_1 = require("axios");
 var fs_1 = require("fs");
-var TS_USER_AGENTS_1 = require("../TS_USER_AGENTS");
-var account = JSON.parse((0, fs_1.readFileSync)("./utils/account.json").toString());
+var account = [];
+try {
+    account = JSON.parse((0, fs_1.readFileSync)("./utils/account.json").toString());
+}
+catch (e) {
+    console.log('utils/account.json load failed');
+}
 function pushplus(title, content, template) {
     if (template === void 0) { template = 'html'; }
     return __awaiter(this, void 0, void 0, function () {
-        var account_1, account_1_1, user, e_1_1;
+        var token, account_1, account_1_1, user, data;
         var e_1, _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 5, 6, 7]);
-                    account_1 = __values(account), account_1_1 = account_1.next();
-                    _b.label = 1;
-                case 1:
-                    if (!!account_1_1.done) return [3 /*break*/, 4];
-                    user = account_1_1.value;
-                    if (!(content.includes(decodeURIComponent(user.pt_pin)) && user.pushplus)) return [3 /*break*/, 3];
-                    console.log("[Pushplus] => ".concat(decodeURIComponent(user.pt_pin)));
-                    return [4 /*yield*/, send(user.pushplus, title, content, template)];
-                case 2:
-                    _b.sent();
-                    _b.label = 3;
-                case 3:
-                    account_1_1 = account_1.next();
-                    return [3 /*break*/, 1];
-                case 4: return [3 /*break*/, 7];
-                case 5:
-                    e_1_1 = _b.sent();
-                    e_1 = { error: e_1_1 };
-                    return [3 /*break*/, 7];
-                case 6:
                     try {
-                        if (account_1_1 && !account_1_1.done && (_a = account_1["return"])) _a.call(account_1);
-                    }
-                    finally { if (e_1) throw e_1.error; }
-                    return [7 /*endfinally*/];
-                case 7: return [2 /*return*/];
-            }
-        });
-    });
-}
-exports.pushplus = pushplus;
-function send(token, title, content, template) {
-    return __awaiter(this, void 0, void 0, function () {
-        var data;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1["default"].post('https://www.pushplus.plus/send', {
-                        token: token,
-                        title: title,
-                        content: content,
-                        template: template
-                    }, {
-                        headers: {
-                            'Content-Type': 'application/json'
+                        for (account_1 = __values(account), account_1_1 = account_1.next(); !account_1_1.done; account_1_1 = account_1.next()) {
+                            user = account_1_1.value;
+                            if (content.includes(decodeURIComponent(user.pt_pin)) && user.pushplus) {
+                                token = user.pushplus;
+                                break;
+                            }
                         }
-                    })];
+                    }
+                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                    finally {
+                        try {
+                            if (account_1_1 && !account_1_1.done && (_a = account_1["return"])) _a.call(account_1);
+                        }
+                        finally { if (e_1) throw e_1.error; }
+                    }
+                    if (!token) {
+                        console.log('no pushplus token');
+                        return [2 /*return*/];
+                    }
+                    return [4 /*yield*/, axios_1["default"].post('https://www.pushplus.plus/send', {
+                            token: token,
+                            title: title,
+                            content: content,
+                            template: template
+                        }, {
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })];
                 case 1:
-                    data = (_a.sent()).data;
+                    data = (_b.sent()).data;
                     if (data.code === 200) {
                         console.log('pushplus发送成功');
                     }
                     else {
-                        (0, TS_USER_AGENTS_1.o2s)(data, 'pushplus发送失败');
+                        console.log('pushplus发送失败', JSON.stringify(data));
                     }
                     return [2 /*return*/];
             }
         });
     });
 }
+exports.pushplus = pushplus;

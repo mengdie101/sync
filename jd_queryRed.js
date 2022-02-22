@@ -64,30 +64,53 @@ var __read = (this && this.__read) || function (o, n) {
 };
 exports.__esModule = true;
 var axios_1 = require("axios");
+var fs_1 = require("fs");
 var date_fns_1 = require("date-fns");
+var notify = require("./sendNotify");
 var pushplus_1 = require("./utils/pushplus");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
 var cookie = '', res = '', UserName;
-var message = '', allMessage = '';
-var date = (0, date_fns_1.getDate)(new Date());
+var date = (0, date_fns_1.getDate)(new Date()), message = '', allMessage = '', pushplusArr, pushplusUser = [];
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, _a, _b, _c, index, value, jdRed, jdRedExp, _d, _e, red, e_1_1;
-    var e_1, _f, e_2, _g;
-    return __generator(this, function (_h) {
-        switch (_h.label) {
+    var pushplusArr_1, pushplusArr_1_1, user, cookiesArr, _a, _b, _c, index, value, jdRed, jdRedExp, _d, _e, red, e_1_1;
+    var e_2, _f, e_1, _g, e_3, _h;
+    return __generator(this, function (_j) {
+        switch (_j.label) {
             case 0:
                 if (Object.keys(process.env).includes("QL_DIR"))
                     return [2 /*return*/];
+                try {
+                    pushplusArr = JSON.parse((0, fs_1.readFileSync)('./utils/account.json', 'utf-8').toString());
+                }
+                catch (e) {
+                    console.log('utils/pushplus.json 加载错误');
+                    pushplusArr = [];
+                }
+                try {
+                    for (pushplusArr_1 = __values(pushplusArr), pushplusArr_1_1 = pushplusArr_1.next(); !pushplusArr_1_1.done; pushplusArr_1_1 = pushplusArr_1.next()) {
+                        user = pushplusArr_1_1.value;
+                        if (user.pushplus) {
+                            pushplusUser.push(decodeURIComponent(user.pt_pin));
+                        }
+                    }
+                }
+                catch (e_2_1) { e_2 = { error: e_2_1 }; }
+                finally {
+                    try {
+                        if (pushplusArr_1_1 && !pushplusArr_1_1.done && (_f = pushplusArr_1["return"])) _f.call(pushplusArr_1);
+                    }
+                    finally { if (e_2) throw e_2.error; }
+                }
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
             case 1:
-                cookiesArr = _h.sent();
-                _h.label = 2;
+                cookiesArr = _j.sent();
+                _j.label = 2;
             case 2:
-                _h.trys.push([2, 9, 10, 11]);
+                _j.trys.push([2, 10, 11, 12]);
                 _a = __values(cookiesArr.entries()), _b = _a.next();
-                _h.label = 3;
+                _j.label = 3;
             case 3:
-                if (!!_b.done) return [3 /*break*/, 8];
+                if (!!_b.done) return [3 /*break*/, 9];
                 _c = __read(_b.value, 2), index = _c[0], value = _c[1];
                 cookie = value;
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
@@ -95,9 +118,9 @@ var date = (0, date_fns_1.getDate)(new Date());
                 jdRed = 0, jdRedExp = 0;
                 return [4 /*yield*/, api()];
             case 4:
-                res = _h.sent();
+                res = _j.sent();
                 try {
-                    for (_d = (e_2 = void 0, __values(res.data.useRedInfo.redList)), _e = _d.next(); !_e.done; _e = _d.next()) {
+                    for (_d = (e_3 = void 0, __values(res.data.useRedInfo.redList)), _e = _d.next(); !_e.done; _e = _d.next()) {
                         red = _e.value;
                         if (red.orgLimitStr.includes("京喜")) {
                         }
@@ -111,38 +134,47 @@ var date = (0, date_fns_1.getDate)(new Date());
                         }
                     }
                 }
-                catch (e_2_1) { e_2 = { error: e_2_1 }; }
+                catch (e_3_1) { e_3 = { error: e_3_1 }; }
                 finally {
                     try {
-                        if (_e && !_e.done && (_g = _d["return"])) _g.call(_d);
+                        if (_e && !_e.done && (_h = _d["return"])) _h.call(_d);
                     }
-                    finally { if (e_2) throw e_2.error; }
+                    finally { if (e_3) throw e_3.error; }
                 }
                 console.log(parseFloat(jdRed.toFixed(2)), parseFloat(jdRedExp.toFixed(2)));
                 message = "\u3010\u4EAC\u4E1C\u8D26\u53F7".concat(index + 1, "\u3011 ").concat(UserName, "\n\u4EAC\u4E1C\u7EA2\u5305  ").concat(jdRed.toFixed(2), "\n\u4ECA\u65E5\u8FC7\u671F  ").concat(jdRedExp.toFixed(2), "\n\n");
-                allMessage += message;
+                if (!pushplusUser.includes(UserName)) return [3 /*break*/, 6];
                 return [4 /*yield*/, (0, pushplus_1.pushplus)('京东红包', message)];
             case 5:
-                _h.sent();
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
+                _j.sent();
+                _j.label = 6;
             case 6:
-                _h.sent();
-                _h.label = 7;
+                allMessage += message;
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
             case 7:
+                _j.sent();
+                _j.label = 8;
+            case 8:
                 _b = _a.next();
                 return [3 /*break*/, 3];
-            case 8: return [3 /*break*/, 11];
-            case 9:
-                e_1_1 = _h.sent();
-                e_1 = { error: e_1_1 };
-                return [3 /*break*/, 11];
+            case 9: return [3 /*break*/, 12];
             case 10:
+                e_1_1 = _j.sent();
+                e_1 = { error: e_1_1 };
+                return [3 /*break*/, 12];
+            case 11:
                 try {
-                    if (_b && !_b.done && (_f = _a["return"])) _f.call(_a);
+                    if (_b && !_b.done && (_g = _a["return"])) _g.call(_a);
                 }
                 finally { if (e_1) throw e_1.error; }
                 return [7 /*endfinally*/];
-            case 11: return [2 /*return*/];
+            case 12:
+                if (!allMessage) return [3 /*break*/, 14];
+                return [4 /*yield*/, (0, notify.sendNotify)('京东红包', allMessage)];
+            case 13:
+                _j.sent();
+                _j.label = 14;
+            case 14: return [2 /*return*/];
         }
     });
 }); })();
