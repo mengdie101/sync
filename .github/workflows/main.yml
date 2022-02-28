@@ -56,8 +56,8 @@ jobs:
         wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/sign_graphics_validate.js
         #wget -N https://raw.githubusercontent.com/star261/jd/main/scripts/jd_productZ4Brand.js
         echo "========= 开始删除某些任务 ========="
-        sed -i '/jd_beauty.js\|jd_daily_egg.js\|jd_daily_lottery.js\|jd_jxg.js\|jd_family.js\|jd_speed.js\|jd_speed_redpocke.js\|jd_moneyTree.js\|jd_sendBeans.js\|jd_jdfactory.js\|jd_live.js\|jd_esManager.js\|jd_foodRunning.js\|jd_jin_tie.js\|jd_kd.js/d' ./docker/crontab_list.sh
-        sed -i '/美丽研究院\|天天提鹅\|每日抽奖\|京小鸽\|家庭号\|天天加速\|京东极速版红包\|摇钱树\|送豆得豆\|东东工厂\|京东直播\|电竞经理\|酷跑零食街\|领金贴\|京东快递签到/d' ./docker/crontab_list.sh
+        sed -i '/jd_beauty.js\|jd_daily_egg.js\|jd_daily_lottery.js\|jd_jxg.js\|jd_family.js\|jd_speed_redpocke.js\|jd_moneyTree.js\|jd_sendBeans.js\|jd_jdfactory.js\|jd_live.js\|jd_esManager.js\|jd_foodRunning.js\|jd_jin_tie.js\|jd_kd.js/d' ./docker/crontab_list.sh
+        sed -i '/美丽研究院\|天天提鹅\|每日抽奖\|京小鸽\|家庭号\|京东极速版红包\|摇钱树\|送豆得豆\|东东工厂\|京东直播\|电竞经理\|酷跑零食街\|领金贴\|京东快递签到/d' ./docker/crontab_list.sh
     - name: 'Commit Files'
       id: commit
       run: |
