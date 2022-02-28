@@ -70,52 +70,22 @@ var TS_USER_AGENTS_1 = require("../TS_USER_AGENTS");
 var ts_md5_1 = require("ts-md5");
 var CryptoJS = require('crypto-js');
 var fp = '', tk = '', genKey = null;
-function getRandomIDPro() {
-    var e, a = 10, n = 'number', i = '';
-    switch (n) {
-        case 'alphabet':
-            e = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            break;
-        case 'max':
-            e = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
-            break;
-        case 'number':
-        default:
-            e = '0123456789';
-    }
-    for (; a--;)
-        i += e[(Math.random() * e.length) | 0];
-    return i;
-}
-function requestAlgo(appId, USER_AGENT, fingerPrint) {
+function requestAlgo(appId, USER_AGENT) {
     if (USER_AGENT === void 0) { USER_AGENT = 'jdpingou;'; }
-    if (fingerPrint === void 0) { fingerPrint = ''; }
     return __awaiter(this, void 0, void 0, function () {
-        var s, a, u, c, ss, _a, _b, i, data;
-        var e_1, _c;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        function generateFp() {
+            var e = "0123456789";
+            var a = 13;
+            var i = '';
+            for (; a--;)
+                i += e[Math.random() * e.length | 0];
+            return (i + Date.now()).slice(0, 16);
+        }
+        var data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    s = "", a = "0123456789", u = a, c = (Math.random() * 10) | 0;
-                    do {
-                        ss = getRandomIDPro() + "";
-                        if (s.indexOf(ss) == -1)
-                            s += ss;
-                    } while (s.length < 3);
-                    try {
-                        for (_a = __values(s.slice()), _b = _a.next(); !_b.done; _b = _a.next()) {
-                            i = _b.value;
-                            u = u.replace(i, '');
-                        }
-                    }
-                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                    finally {
-                        try {
-                            if (_b && !_b.done && (_c = _a["return"])) _c.call(_a);
-                        }
-                        finally { if (e_1) throw e_1.error; }
-                    }
-                    fp = fingerPrint || getRandomIDPro() + "" + s + getRandomIDPro() + c + "";
+                    fp = generateFp();
                     return [4 /*yield*/, axios_1["default"].post("https://cactus.jd.com/request_algo?g_ty=ajax", "{\"version\":\"3.0\",\"fp\":\"".concat(fp, "\",\"appId\":\"").concat(appId, "\",\"timestamp\":").concat(Date.now(), ",\"platform\":\"web\",\"expandParams\":\"\"}"), {
                             headers: {
                                 'Accept': 'application/json',
@@ -128,7 +98,7 @@ function requestAlgo(appId, USER_AGENT, fingerPrint) {
                             }
                         })];
                 case 1:
-                    data = (_d.sent()).data;
+                    data = (_a.sent()).data;
                     tk = data.data.result.tk;
                     genKey = new Function("return ".concat(data.data.result.algo))();
                     return [2 /*return*/, { fp: fp, tk: tk, genKey: genKey }];
@@ -151,8 +121,8 @@ exports.geth5st = geth5st;
 function get(fn, stk, params, jxToken, cookie, ua) {
     if (ua === void 0) { ua = 'jdpingou;'; }
     return __awaiter(this, void 0, void 0, function () {
-        var url, t, _a, _b, _c, key, value, h5st, data, e_2;
-        var e_3, _d;
+        var url, t, _a, _b, _c, key, value, h5st, data, e_1;
+        var e_2, _d;
         return __generator(this, function (_e) {
             switch (_e.label) {
                 case 0:
@@ -176,12 +146,12 @@ function get(fn, stk, params, jxToken, cookie, ua) {
                             url += "&".concat(key, "=").concat(value);
                         }
                     }
-                    catch (e_3_1) { e_3 = { error: e_3_1 }; }
+                    catch (e_2_1) { e_2 = { error: e_2_1 }; }
                     finally {
                         try {
                             if (_b && !_b.done && (_d = _a["return"])) _d.call(_a);
                         }
-                        finally { if (e_3) throw e_3.error; }
+                        finally { if (e_2) throw e_2.error; }
                     }
                     h5st = geth5st(t, '00df8');
                     url += "&h5st=".concat(h5st);
@@ -202,8 +172,8 @@ function get(fn, stk, params, jxToken, cookie, ua) {
                     data = (_e.sent()).data;
                     return [2 /*return*/, JSON.parse(data.match(/jsonpCBK.?\((.*)/)[1])];
                 case 3:
-                    e_2 = _e.sent();
-                    (0, TS_USER_AGENTS_1.o2s)(e_2);
+                    e_1 = _e.sent();
+                    (0, TS_USER_AGENTS_1.o2s)(e_1);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
@@ -213,7 +183,7 @@ function get(fn, stk, params, jxToken, cookie, ua) {
 exports.get = get;
 function makeShareCodes(code, cookie) {
     return __awaiter(this, void 0, void 0, function () {
-        var bean, farm, pin, data, e_4;
+        var bean, farm, pin, data, e_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -231,9 +201,9 @@ function makeShareCodes(code, cookie) {
                     console.log(data.message);
                     return [3 /*break*/, 5];
                 case 4:
-                    e_4 = _a.sent();
+                    e_3 = _a.sent();
                     console.log('自动提交失败');
-                    console.log(e_4);
+                    console.log(e_3);
                     return [3 /*break*/, 5];
                 case 5: return [2 /*return*/];
             }

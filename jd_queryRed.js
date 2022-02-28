@@ -63,7 +63,6 @@ var __read = (this && this.__read) || function (o, n) {
     return ar;
 };
 exports.__esModule = true;
-var axios_1 = require("axios");
 var fs_1 = require("fs");
 var date_fns_1 = require("date-fns");
 var notify = require("./sendNotify");
@@ -116,7 +115,12 @@ var date = (0, date_fns_1.getDate)(new Date()), message = '', allMessage = '', p
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7".concat(index + 1, "\u3011").concat(UserName, "\n"));
                 jdRed = 0, jdRedExp = 0;
-                return [4 /*yield*/, api()];
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.get)("https://wq.jd.com/user/info/QueryUserRedEnvelopesV2?type=1&orgFlag=JD_PinGou_New&page=1&cashRedType=1&redBalanceFlag=1&channel=3&_=".concat(Date.now(), "&sceneval=2&g_login_type=1&callback=jsonpCBK").concat((0, TS_USER_AGENTS_1.randomWord)(), "&g_ty=ls"), '', {
+                        'authority': 'wq.jd.com',
+                        'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1',
+                        'referer': 'https://wqs.jd.com/',
+                        'cookie': cookie
+                    })];
             case 4:
                 res = _j.sent();
                 try {
@@ -178,23 +182,3 @@ var date = (0, date_fns_1.getDate)(new Date()), message = '', allMessage = '', p
         }
     });
 }); })();
-function api() {
-    return __awaiter(this, void 0, void 0, function () {
-        var data;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1["default"].get("https://wq.jd.com/user/info/QueryUserRedEnvelopesV2?type=1&orgFlag=JD_PinGou_New&page=1&cashRedType=1&redBalanceFlag=1&channel=3&_=".concat(Date.now(), "&sceneval=2&g_login_type=1&callback=jsonpCBK").concat((0, TS_USER_AGENTS_1.randomWord)(), "&g_ty=ls"), {
-                        headers: {
-                            'authority': 'wq.jd.com',
-                            'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1',
-                            'referer': 'https://wqs.jd.com/',
-                            'cookie': cookie
-                        }
-                    })];
-                case 1:
-                    data = (_a.sent()).data;
-                    return [2 /*return*/, JSON.parse(data.match(/jsonpCBK.?\(([\w\W]*)\);/)[1])];
-            }
-        });
-    });
-}

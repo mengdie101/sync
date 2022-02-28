@@ -35,73 +35,60 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
 exports.__esModule = true;
-/**
- * 每天检测cookie是否有效
- * cron: 10 * * * *
- */
-var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
-var notify = require('./sendNotify');
-var cookie = '', UserName, index, errMsg = '';
+var cookie = '', UserName;
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, i;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var cookiesArr, _a, _b, _c, index, value;
+    var e_1, _d;
+    return __generator(this, function (_e) {
+        switch (_e.label) {
             case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
             case 1:
-                cookiesArr = _a.sent();
-                i = 0;
-                _a.label = 2;
-            case 2:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 5];
-                cookie = cookiesArr[i];
-                UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
-                index = i + 1;
-                return [4 /*yield*/, api(index, cookie, UserName)];
-            case 3:
-                _a.sent();
-                _a.label = 4;
-            case 4:
-                i++;
-                return [3 /*break*/, 2];
-            case 5:
-                if (!errMsg) return [3 /*break*/, 7];
-                return [4 /*yield*/, notify.sendNotify("Cookie失效", errMsg, '', '你好，世界！')];
-            case 6:
-                _a.sent();
-                _a.label = 7;
-            case 7: return [2 /*return*/];
+                cookiesArr = _e.sent();
+                try {
+                    for (_a = __values(cookiesArr.entries()), _b = _a.next(); !_b.done; _b = _a.next()) {
+                        _c = __read(_b.value, 2), index = _c[0], value = _c[1];
+                        cookie = value;
+                        UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
+                        console.log(index + 1, UserName);
+                    }
+                }
+                catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                finally {
+                    try {
+                        if (_b && !_b.done && (_d = _a["return"])) _d.call(_a);
+                    }
+                    finally { if (e_1) throw e_1.error; }
+                }
+                return [2 /*return*/];
         }
     });
 }); })();
-function api(index, cookie, username) {
-    return __awaiter(this, void 0, void 0, function () {
-        var data;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1["default"].get("https://me-api.jd.com/user_new/info/GetJDUserInfoUnion", {
-                        headers: {
-                            Host: "me-api.jd.com",
-                            Connection: "keep-alive",
-                            Cookie: cookie,
-                            "User-Agent": TS_USER_AGENTS_1["default"],
-                            "Accept-Language": "zh-cn",
-                            "Referer": "https://home.m.jd.com/myJd/newhome.action?sceneval=2&ufc=&",
-                            "Accept-Encoding": "gzip, deflate, br"
-                        }
-                    })];
-                case 1:
-                    data = (_a.sent()).data;
-                    if (data.retcode === '0') {
-                        console.log(index, '✅', username);
-                    }
-                    else {
-                        console.log(index, '❌', username);
-                        errMsg += "".concat(index, " ").concat(username, "\n");
-                    }
-                    return [2 /*return*/];
-            }
-        });
-    });
-}
