@@ -1,9 +1,8 @@
 "use strict";
 /**
- * jd_zjd
- * Cookie >= 4 内部
- * Cookie <  4 HW.ts -> 内部
- * cron: 15 0,1,23 * * *
+ * v0.1
+ * cron: 15 0,1 * * *
+ * CK1 优先助力HW.ts
  */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -78,45 +77,44 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 exports.__esModule = true;
+var axios_1 = require("axios");
+var jd_zjd_tool_js_1 = require("./utils/jd_zjd_tool.js");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
-var V3_1 = require("./utils/V3");
-var zjd_1 = require("./utils/zjd");
+var crypto_js_1 = require("crypto-js");
 var cookie = '', res = '', UserName;
-var USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36 MicroMessenger/7.0.9.501 NetType/WIFI MiniProgramEnv/Windows WindowsWechat';
-var shareCodeSelf = [], shareCode = [], shareCodeHW = [], encPin = [];
+var shareCodeSelf = [], shareCode = [], shareCodeHW = [];
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, _a, _b, _c, index, value, _d, fp, tk, genKey, e_1, e_2_1, _e, _f, _g, index, value, _h, fp, tk, genKey, shareCode_1, shareCode_1_1, code, e_3, e_4_1, e_5_1;
-    var e_2, _j, e_5, _k, e_4, _l;
-    return __generator(this, function (_m) {
-        switch (_m.label) {
+    var cookiesArr, _a, _b, _c, index, value, e_1, e_2_1, _d, _e, _f, index, value, shareCode_1, shareCode_1_1, code, e_3, e_4_1, e_5_1;
+    var e_2, _g, e_5, _h, e_4, _j;
+    return __generator(this, function (_k) {
+        switch (_k.label) {
             case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
             case 1:
-                cookiesArr = _m.sent();
-                _m.label = 2;
+                cookiesArr = _k.sent();
+                _k.label = 2;
             case 2:
-                _m.trys.push([2, 27, 28, 29]);
+                _k.trys.push([2, 27, 28, 29]);
                 _a = __values(cookiesArr.entries()), _b = _a.next();
-                _m.label = 3;
+                _k.label = 3;
             case 3:
                 if (!!_b.done) return [3 /*break*/, 26];
                 _c = __read(_b.value, 2), index = _c[0], value = _c[1];
-                _m.label = 4;
+                _k.label = 4;
             case 4:
-                _m.trys.push([4, 22, , 23]);
-                return [4 /*yield*/, (0, V3_1.requestAlgo)('d8ac0', USER_AGENT)];
+                _k.trys.push([4, 22, , 23]);
+                return [4 /*yield*/, (0, jd_zjd_tool_js_1.zjdInit)()];
             case 5:
-                _d = _m.sent(), fp = _d.fp, tk = _d.tk, genKey = _d.genKey;
-                (0, zjd_1.init)(fp, tk, genKey);
+                _k.sent();
                 cookie = value;
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7".concat(index + 1, "\u3011").concat(UserName, "\n"));
                 return [4 /*yield*/, api('distributeBeanActivityInfo', { "paramData": { "channel": "FISSION_BEAN" } })];
             case 6:
-                res = _m.sent();
+                res = _k.sent();
                 (0, TS_USER_AGENTS_1.o2s)(res);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 7:
-                _m.sent();
+                _k.sent();
                 if (!(res.data.assistStatus === 1)) return [3 /*break*/, 8];
                 // 已开，没满
                 console.log('已开团，', res.data.assistedRecords.length, '/', res.data.assistNum, '，剩余', Math.round(res.data.assistValidMilliseconds / 1000 / 60), '分钟');
@@ -131,16 +129,16 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [], encPin = [];
                 return [4 /*yield*/, api('vvipclub_distributeBean_startAssist', { "activityIdEncrypted": res.data.id, "channel": "FISSION_BEAN" })];
             case 9:
                 // 没开团
-                res = _m.sent();
+                res = _k.sent();
                 (0, TS_USER_AGENTS_1.o2s)(res);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
             case 10:
-                _m.sent();
+                _k.sent();
                 if (!res.success) return [3 /*break*/, 13];
                 console.log("\u5F00\u56E2\u6210\u529F\uFF0C\u7ED3\u675F\u65F6\u95F4\uFF1A".concat(res.data.endTime));
                 return [4 /*yield*/, api('distributeBeanActivityInfo', { "paramData": { "channel": "FISSION_BEAN" } })];
             case 11:
-                res = _m.sent();
+                res = _k.sent();
                 shareCodeSelf.push({
                     activityIdEncrypted: res.data.id,
                     assistStartRecordId: res.data.assistStartRecordId,
@@ -148,8 +146,8 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [], encPin = [];
                 });
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
             case 12:
-                _m.sent();
-                _m.label = 13;
+                _k.sent();
+                _k.label = 13;
             case 13: return [3 /*break*/, 21];
             case 14:
                 if (!(res.data.assistedRecords.length === res.data.assistNum)) return [3 /*break*/, 20];
@@ -157,16 +155,16 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [], encPin = [];
                 if (!res.data.canStartNewAssist) return [3 /*break*/, 19];
                 return [4 /*yield*/, api('vvipclub_distributeBean_startAssist', { "activityIdEncrypted": res.data.id, "channel": "FISSION_BEAN" })];
             case 15:
-                res = _m.sent();
+                res = _k.sent();
                 console.log('4', res);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 16:
-                _m.sent();
+                _k.sent();
                 if (!res.success) return [3 /*break*/, 19];
                 console.log("\u5F00\u56E2\u6210\u529F\uFF0C\u7ED3\u675F\u65F6\u95F4\uFF1A".concat(res.data.endTime));
                 return [4 /*yield*/, api('distributeBeanActivityInfo', { "paramData": { "channel": "FISSION_BEAN" } })];
             case 17:
-                res = _m.sent();
+                res = _k.sent();
                 shareCodeSelf.push({
                     activityIdEncrypted: res.data.id,
                     assistStartRecordId: res.data.assistStartRecordId,
@@ -174,76 +172,75 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [], encPin = [];
                 });
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
             case 18:
-                _m.sent();
-                _m.label = 19;
+                _k.sent();
+                _k.label = 19;
             case 19: return [3 /*break*/, 21];
             case 20:
                 if (!res.data.canStartNewAssist) {
                     console.log('不可开团');
                 }
-                _m.label = 21;
+                _k.label = 21;
             case 21: return [3 /*break*/, 23];
             case 22:
-                e_1 = _m.sent();
+                e_1 = _k.sent();
                 return [3 /*break*/, 25];
             case 23: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 24:
-                _m.sent();
-                _m.label = 25;
+                _k.sent();
+                _k.label = 25;
             case 25:
                 _b = _a.next();
                 return [3 /*break*/, 3];
             case 26: return [3 /*break*/, 29];
             case 27:
-                e_2_1 = _m.sent();
+                e_2_1 = _k.sent();
                 e_2 = { error: e_2_1 };
                 return [3 /*break*/, 29];
             case 28:
                 try {
-                    if (_b && !_b.done && (_j = _a["return"])) _j.call(_a);
+                    if (_b && !_b.done && (_g = _a["return"])) _g.call(_a);
                 }
                 finally { if (e_2) throw e_2.error; }
                 return [7 /*endfinally*/];
             case 29:
                 (0, TS_USER_AGENTS_1.o2s)(shareCodeSelf);
-                _m.label = 30;
+                _k.label = 30;
             case 30:
-                _m.trys.push([30, 50, 51, 52]);
-                _e = __values(cookiesArr.entries()), _f = _e.next();
-                _m.label = 31;
+                _k.trys.push([30, 50, 51, 52]);
+                _d = __values(cookiesArr.entries()), _e = _d.next();
+                _k.label = 31;
             case 31:
-                if (!!_f.done) return [3 /*break*/, 49];
-                _g = __read(_f.value, 2), index = _g[0], value = _g[1];
+                if (!!_e.done) return [3 /*break*/, 49];
+                _f = __read(_e.value, 2), index = _f[0], value = _f[1];
                 if (!(shareCodeHW.length === 0)) return [3 /*break*/, 33];
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.getshareCodeHW)('zjd')];
             case 32:
-                shareCodeHW = _m.sent();
-                _m.label = 33;
+                shareCodeHW = _k.sent();
+                _k.label = 33;
             case 33:
                 shareCode = index === 0
                     ? Array.from(new Set(__spreadArray(__spreadArray([], __read(shareCodeHW), false), __read(shareCodeSelf), false)))
                     : Array.from(new Set(__spreadArray(__spreadArray([], __read(shareCodeSelf), false), __read(shareCodeHW), false)));
                 cookie = value;
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
-                return [4 /*yield*/, (0, V3_1.requestAlgo)('d8ac0', USER_AGENT)];
+                return [4 /*yield*/, (0, jd_zjd_tool_js_1.zjdInit)()];
             case 34:
-                _h = _m.sent(), fp = _h.fp, tk = _h.tk, genKey = _h.genKey;
-                (0, zjd_1.init)(fp, tk, genKey);
-                _m.label = 35;
+                _k.sent();
+                _k.label = 35;
             case 35:
-                _m.trys.push([35, 44, 45, 46]);
+                _k.trys.push([35, 44, 45, 46]);
                 shareCode_1 = (e_4 = void 0, __values(shareCode)), shareCode_1_1 = shareCode_1.next();
-                _m.label = 36;
+                _k.label = 36;
             case 36:
                 if (!!shareCode_1_1.done) return [3 /*break*/, 43];
                 code = shareCode_1_1.value;
-                _m.label = 37;
+                _k.label = 37;
             case 37:
-                _m.trys.push([37, 39, , 40]);
+                _k.trys.push([37, 39, , 40]);
                 console.log("\u8D26\u53F7".concat(index + 1, " ").concat(UserName, " \u53BB\u52A9\u529B ").concat(code.assistedPinEncrypted.replace('\n', '')));
                 return [4 /*yield*/, api('vvipclub_distributeBean_assist', { "activityIdEncrypted": code.activityIdEncrypted, "assistStartRecordId": code.assistStartRecordId, "assistedPinEncrypted": code.assistedPinEncrypted, "channel": "FISSION_BEAN", "launchChannel": "undefined" })];
             case 38:
-                res = _m.sent();
+                res = _k.sent();
                 if (res.resultCode === '9200008') {
                     console.log('不能助力自己');
                 }
@@ -262,24 +259,24 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [], encPin = [];
                 }
                 return [3 /*break*/, 40];
             case 39:
-                e_3 = _m.sent();
+                e_3 = _k.sent();
                 console.log(e_3);
                 return [3 /*break*/, 43];
             case 40: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 41:
-                _m.sent();
-                _m.label = 42;
+                _k.sent();
+                _k.label = 42;
             case 42:
                 shareCode_1_1 = shareCode_1.next();
                 return [3 /*break*/, 36];
             case 43: return [3 /*break*/, 46];
             case 44:
-                e_4_1 = _m.sent();
+                e_4_1 = _k.sent();
                 e_4 = { error: e_4_1 };
                 return [3 /*break*/, 46];
             case 45:
                 try {
-                    if (shareCode_1_1 && !shareCode_1_1.done && (_l = shareCode_1["return"])) _l.call(shareCode_1);
+                    if (shareCode_1_1 && !shareCode_1_1.done && (_j = shareCode_1["return"])) _j.call(shareCode_1);
                 }
                 finally { if (e_4) throw e_4.error; }
                 return [7 /*endfinally*/];
@@ -287,19 +284,19 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [], encPin = [];
                 console.log();
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 47:
-                _m.sent();
-                _m.label = 48;
+                _k.sent();
+                _k.label = 48;
             case 48:
-                _f = _e.next();
+                _e = _d.next();
                 return [3 /*break*/, 31];
             case 49: return [3 /*break*/, 52];
             case 50:
-                e_5_1 = _m.sent();
+                e_5_1 = _k.sent();
                 e_5 = { error: e_5_1 };
                 return [3 /*break*/, 52];
             case 51:
                 try {
-                    if (_f && !_f.done && (_k = _e["return"])) _k.call(_e);
+                    if (_e && !_e.done && (_h = _d["return"])) _h.call(_d);
                 }
                 finally { if (e_5) throw e_5.error; }
                 return [7 /*endfinally*/];
@@ -307,26 +304,31 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [], encPin = [];
         }
     });
 }); })();
-function api(fn, params) {
+function api(fn, body) {
     return __awaiter(this, void 0, void 0, function () {
-        var h5st;
+        var h5st, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    if (fn === 'vvipclub_distributeBean_assist') {
-                        h5st = (0, zjd_1.zjdTool)({ "activityIdEncrypted": params.activityIdEncrypted, "channel": "FISSION_BEAN" });
-                    }
-                    else {
-                        h5st = (0, zjd_1.zjdTool)(params);
-                    }
-                    return [4 /*yield*/, (0, TS_USER_AGENTS_1.post)("https://api.m.jd.com/api?functionId=".concat(fn, "&fromType=wxapp&timestamp=").concat(Date.now()), "body=".concat(decodeURIComponent(JSON.stringify(params)), "&appid=swat_miniprogram&h5st=").concat(h5st, "&client=tjj_m&clientVersion=3.1.3"), {
-                            "Content-Type": "application/x-www-form-urlencoded; Charset=UTF-8",
-                            "Host": "api.m.jd.com",
-                            "Referer": "https://servicewechat.com/wxa5bf5ee667d91626/182/page-frame.html",
-                            "Cookie": cookie,
-                            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36 MicroMessenger/7.0.9.501 NetType/WIFI MiniProgramEnv/Windows WindowsWechat'
+                    h5st = (0, jd_zjd_tool_js_1.zjdH5st)({
+                        'fromType': 'wxapp',
+                        'timestamp': Date.now(),
+                        'body0': JSON.stringify(body),
+                        'appid': 'swat_miniprogram',
+                        'body': (0, crypto_js_1.SHA256)(JSON.stringify(body)).toString(),
+                        'functionId': fn
+                    });
+                    return [4 /*yield*/, axios_1["default"].post("https://api.m.jd.com/api?functionId=".concat(fn, "&fromType=wxapp&timestamp=").concat(Date.now()), "functionId=distributeBeanActivityInfo&body=".concat(encodeURIComponent(JSON.stringify(body)), "&appid=swat_miniprogram&h5st=").concat(encodeURIComponent(h5st)), {
+                            headers: {
+                                'content-type': 'application/x-www-form-urlencoded',
+                                'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E217 MicroMessenger/6.8.0(0x16080000) NetType/WIFI Language/en Branch/Br_trunk MiniProgramEnv/Mac',
+                                'referer': 'https://servicewechat.com/wxa5bf5ee667d91626/173/page-frame.html',
+                                'Cookie': cookie
+                            }
                         })];
-                case 1: return [2 /*return*/, _a.sent()];
+                case 1:
+                    data = (_a.sent()).data;
+                    return [2 /*return*/, data];
             }
         });
     });
