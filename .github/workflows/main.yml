@@ -49,7 +49,7 @@ jobs:
         mv ./JDHelloWorld/jd_jxmc.js ./JDHelloWorld/jd_jxmch.js
         mv ./JDHelloWorld/jd_cfd.js ./JDHelloWorld/jd_cfdh.js
         awk 'BEGIN { cmd="cp -i ./JDHelloWorld/*.js ./"; print "n" |cmd; }'
-        cp -rf ./JDHelloWorld/{jd_cash.js,jd_health.js} ./
+        cp -rf ./JDHelloWorld/{jd_health.js} ./
         rm -rf ./JDHelloWorld
         echo "========= 开始下载单文件脚本 ========="
         wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/jd_sign_graphics.js
