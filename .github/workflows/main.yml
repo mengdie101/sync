@@ -46,8 +46,6 @@ jobs:
         echo "========= 开始复制JDHelloWorld的脚本 ========="
         cd ..
         awk 'BEGIN { cmd="cp -ri ./JDHelloWorld/utils ./"; print "n" |cmd; }'
-        mv ./JDHelloWorld/jd_jxmc.js ./JDHelloWorld/jd_jxmch.js
-        mv ./JDHelloWorld/jd_cfd.js ./JDHelloWorld/jd_cfdh.js
         awk 'BEGIN { cmd="cp -i ./JDHelloWorld/*.js ./"; print "n" |cmd; }'
         cp -rf ./JDHelloWorld/{jd_cash.js,jd_health.js} ./
         rm -rf ./JDHelloWorld
@@ -59,7 +57,7 @@ jobs:
         echo "========= 开始删除某些任务 ========="
         sed -i '/jd_beauty.js\|jd_daily_lottery.js\|jd_family.js\|jd_speed_redpocke.js\|jd_moneyTree.js\|jd_jdfactory.js\|jd_live.js\|jd_jin_tie.js\|jd_pigPet.js\|jd_kd.js/d' ./docker/crontab_list.sh
         sed -i '/美丽研究院\|每日抽奖\|家庭号\|京东极速版红包\|摇钱树\|东东工厂\|京东直播\|领金贴\|金融养猪\|京东快递签到/d' ./docker/crontab_list.sh
-        rm -f jd_beauty.js jd_daily_lottery.js jd_family.js jd_speed_redpocke.js jd_moneyTree.js jd_jdfactory.js jd_live.js jd_jin_tie.js jd_pigPet.js jd_kd.js
+        rm -f jd_beauty.js jd_daily_lottery.js jd_family.js jd_speed_redpocke.js jd_moneyTree.js jd_jdfactory.js jd_live.js jd_jin_tie.js jd_pigPet.js jd_kd.js z_jd_喂猪.js jd_ysq.js jd_version.js jd_try.js jd_track.js jd_tewu.js jd_queryRedpacket.js jd_qq_pasture.js jd_pap_pay.js jd_order_cashback.js jd_get_share_code.js jd_checkCookie.js jd_bean_change_diy.js jd_api_test.js jd_Last_Week_income.js 
     - name: 'Commit Files'
       id: commit
       run: |
