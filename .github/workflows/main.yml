@@ -34,7 +34,7 @@ jobs:
         git clone https://github.com/JDHelloWorld/jd_scripts.git ./JDHelloWorld
         echo "========= 开始复制依赖 ========="
         cp -f ./JDHelloWorld/*ShareCodes.js ./
-        cp -rf ./JDHelloWorld/{jd_plantBean.js,jd_pet.js,jd_dreamFactory.js} ./
+        cp -rf ./JDHelloWorld/{jd_fruit.js,jd_plantBean.js,jd_pet.js,jd_dreamFactory.js,jd_cash.js,jd_health.ts} ./
         echo "========= 开始转换JDHelloWorld的ts脚本 ========="
         cd ./JDHelloWorld
         rm -rf ./backUp
