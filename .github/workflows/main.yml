@@ -34,7 +34,7 @@ jobs:
         git clone https://github.com/JDHelloWorld/jd_scripts.git ./JDHelloWorld
         echo "========= 开始复制依赖 ========="
         cp -f ./JDHelloWorld/*ShareCodes.js ./
-        cp -rf ./JDHelloWorld/{jd_fruit.js,jd_plantBean.js,jd_pet.js,jd_dreamFactory.js,jd_cash.js,jd_health.ts} ./
+        cp -rf ./JDHelloWorld/{jd_fruit.js,jd_plantBean.js,jd_pet.js,jd_dreamFactory.js} ./
         echo "========= 开始转换JDHelloWorld的ts脚本 ========="
         cd ./JDHelloWorld
         rm -rf ./backUp
@@ -49,6 +49,7 @@ jobs:
         mv ./JDHelloWorld/jd_jxmc.js ./JDHelloWorld/jd_jxmch.js
         mv ./JDHelloWorld/jd_cfd.js ./JDHelloWorld/jd_cfdh.js
         awk 'BEGIN { cmd="cp -i ./JDHelloWorld/*.js ./"; print "n" |cmd; }'
+        cp -rf ./JDHelloWorld/{jd_cash.js,jd_health.js} ./
         rm -rf ./JDHelloWorld
         echo "========= 开始下载单文件脚本 ========="
         wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/jd_sign_graphics.js
