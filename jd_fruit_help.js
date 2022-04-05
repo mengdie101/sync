@@ -129,7 +129,7 @@ var message = '', log = { help: '', runTimes: '' };
                 _j.label = 8;
             case 8:
                 _j.trys.push([8, 10, , 12]);
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.get)("https://api.jdsharecode.xyz/api/runTime1s?activityId=farm&sharecode=".concat(res.farmUserPro.shareCode))];
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.get)("https://api.jdsharecode.xyz/api/runTimes?activityId=farm&sharecode=".concat(res.farmUserPro.shareCode))];
             case 9:
                 res = _j.sent();
                 console.log(res);
