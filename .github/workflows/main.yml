@@ -34,10 +34,11 @@ jobs:
         git clone https://github.com/JDHelloWorld/jd_scripts.git ./JDHelloWorld
         echo "========= 开始复制依赖 ========="
         cp -f ./JDHelloWorld/*ShareCodes.js ./
-        cp -rf ./JDHelloWorld/{jd_fruit.js,jd_plantBean.js,jd_pet.js,jd_dreamFactory.js,jd_carnivalcity.js} ./
+        cp -rf ./JDHelloWorld/{jd_plantBean.js,jd_pet.js,jd_dreamFactory.js,jd_carnivalcity.js} ./
+        cp -f ./JDHelloWorld/jd_fruit.js ./jd_fruit_h.js
         echo "========= 开始转换JDHelloWorld的ts脚本 ========="
         cd ./JDHelloWorld
-        rm -rf ./backUp
+        rm -rf ./archive
         rm `ls *.js|egrep -v sendNotify.js`
         rm -f jd_jxScore.ts jd_cfd_game.ts jd_cfd_shell.ts jx_box.ts jx_nnfls.ts
         sudo npm install
