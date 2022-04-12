@@ -48,7 +48,6 @@ jobs:
         cd ..
         awk 'BEGIN { cmd="cp -ri ./JDHelloWorld/utils ./"; print "n" |cmd; }'
         awk 'BEGIN { cmd="cp -i ./JDHelloWorld/*.js ./"; print "n" |cmd; }'
-        cp -rf ./JDHelloWorld/{jd_cash.js,jd_health.js} ./
         rm -rf ./JDHelloWorld
         echo "========= 开始下载单文件脚本 ========="
         wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/jd_sign_graphics.js
