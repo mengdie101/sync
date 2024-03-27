@@ -49,7 +49,7 @@ jobs:
         awk 'BEGIN { cmd="cp -i ./JDHelloWorld/*.js ./"; print "n" |cmd; }'
         sudo rm -rf ./JDHelloWorld
         echo "========= 开始下载单文件脚本 ========="
-        wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/jd_sign_graphics.js
+        #wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/jd_sign_graphics.js
         wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/JDJRValidator_Pure.js
         wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/sign_graphics_validate.js
         #wget -N https://raw.githubusercontent.com/star261/jd/main/scripts/jd_productZ4Brand.js
