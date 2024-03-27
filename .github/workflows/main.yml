@@ -45,8 +45,8 @@ jobs:
         sed -i 's/sendNotify_1/notify/g' *.js
         echo "========= 开始复制JDHelloWorld的脚本 ========="
         cd ..
-        awk 'BEGIN { cmd="cp -ri ./JDHelloWorld/utils ./"; print "n" |cmd; }'
-        awk 'BEGIN { cmd="cp -i ./JDHelloWorld/*.js ./"; print "n" |cmd; }'
+        awk 'BEGIN { cmd="cp -ri ./JDHelloWorld/utils ./"; print "y" |cmd; }'
+        awk 'BEGIN { cmd="cp -i ./JDHelloWorld/*.js ./"; print "y" |cmd; }'
         sudo rm -rf ./JDHelloWorld
         echo "========= 开始下载单文件脚本 ========="
         #wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/jd_sign_graphics.js
