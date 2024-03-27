@@ -14,7 +14,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -35,16 +35,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-exports.post = exports.get = exports.jdpingou = exports.obj2str = exports.randomWord = exports.getShareCodePool = exports.getshareCodeHW = exports.randomNumString = exports.o2s = exports.randomString = exports.exceptCookie = exports.getJxToken = exports.requestAlgo = exports.getRandomNumberByRange = exports.wait = exports.requireConfig = exports.getFarmShareCode = exports.getBeanShareCode = exports.TotalBean = void 0;
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.USER_AGENTS_ARR = exports.USER_AGENT = exports.post = exports.get = exports.jdpingou = exports.randomWord = exports.getShareCodePool = exports.getshareCodeHW = exports.randomNumString = exports.o2s = exports.randomString = exports.exceptCookie = exports.getJxToken = exports.getRandomNumberByRange = exports.wait = exports.getCookie = exports.getFarmShareCode = exports.getBeanShareCode = void 0;
 var axios_1 = require("axios");
 var ts_md5_1 = require("ts-md5");
 var dotenv = require("dotenv");
 var fs_1 = require("fs");
-var notify = require("./sendNotify");
 dotenv.config();
-var fingerprint, token = '', enCryptMethodJD;
-var USER_AGENTS = [
+var USER_AGENTS_ARR = [
     "jdapp;android;10.0.2;10;network/wifi;Mozilla/5.0 (Linux; Android 10; ONEPLUS A5010 Build/QKQ1.191014.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045230 Mobile Safari/537.36",
     "jdapp;iPhone;10.0.2;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
     "jdapp;android;10.0.2;9;network/4g;Mozilla/5.0 (Linux; Android 9; Mi Note 3 Build/PKQ1.181007.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 MQQBrowser/6.2 TBS/045131 Mobile Safari/537.36",
@@ -82,26 +91,21 @@ var USER_AGENTS = [
     "jdapp;android;10.0.2;10;network/wifi;Mozilla/5.0 (Linux; Android 10; MI 8 Build/QKQ1.190828.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045227 Mobile Safari/537.36",
     "jdapp;iPhone;10.0.2;14.1;network/wifi;Mozilla/5.0 (iPhone; CPU iPhone OS 14_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
 ];
-function TotalBean(cookie) {
-    return {
-        cookie: cookie,
-        isLogin: true,
-        nickName: ''
-    };
-}
-exports.TotalBean = TotalBean;
+exports.USER_AGENTS_ARR = USER_AGENTS_ARR;
 function getRandomNumberByRange(start, end) {
+    end <= start && (end = start + 100);
     return Math.floor(Math.random() * (end - start) + start);
 }
 exports.getRandomNumberByRange = getRandomNumberByRange;
-var USER_AGENT = USER_AGENTS[getRandomNumberByRange(0, USER_AGENTS.length)];
+var USER_AGENT = USER_AGENTS_ARR[getRandomNumberByRange(0, USER_AGENTS_ARR.length)];
+exports.USER_AGENT = USER_AGENT;
 function getBeanShareCode(cookie) {
-    var _a, _b;
     return __awaiter(this, void 0, void 0, function () {
         var data;
+        var _a, _b;
         return __generator(this, function (_c) {
             switch (_c.label) {
-                case 0: return [4 /*yield*/, axios_1["default"].post('https://api.m.jd.com/client.action', "functionId=plantBeanIndex&body=".concat(encodeURIComponent(JSON.stringify({ version: "9.0.0.1", "monitor_source": "plant_app_plant_index", "monitor_refer": "" })), "&appid=ld&client=apple&area=5_274_49707_49973&build=167283&clientVersion=9.1.0"), {
+                case 0: return [4 /*yield*/, axios_1.default.post('https://api.m.jd.com/client.action', "functionId=plantBeanIndex&body=".concat(encodeURIComponent(JSON.stringify({ version: "9.0.0.1", "monitor_source": "plant_app_plant_index", "monitor_refer": "" })), "&appid=ld&client=apple&area=5_274_49707_49973&build=167283&clientVersion=9.1.0"), {
                         headers: {
                             Cookie: cookie,
                             Host: "api.m.jd.com",
@@ -127,7 +131,7 @@ function getFarmShareCode(cookie) {
         var data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1["default"].post('https://api.m.jd.com/client.action?functionId=initForFarm', "body=".concat(encodeURIComponent(JSON.stringify({ "version": 4 })), "&appid=wh5&clientVersion=9.1.0"), {
+                case 0: return [4 /*yield*/, axios_1.default.post('https://api.m.jd.com/client.action?functionId=initForFarm', "body=".concat(encodeURIComponent(JSON.stringify({ "version": 4 })), "&appid=wh5&clientVersion=9.1.0"), {
                         headers: {
                             "cookie": cookie,
                             "origin": "https://home.m.jd.com",
@@ -148,146 +152,57 @@ function getFarmShareCode(cookie) {
     });
 }
 exports.getFarmShareCode = getFarmShareCode;
-function requireConfig(check) {
-    if (check === void 0) { check = false; }
+function getCookie() {
     return __awaiter(this, void 0, void 0, function () {
-        var cookiesArr, jdCookieNode, keys, i, cookie, username;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    cookiesArr = [];
-                    jdCookieNode = require('./jdCookie.js');
-                    keys = Object.keys(jdCookieNode);
-                    i = 0;
-                    _a.label = 1;
-                case 1:
-                    if (!(i < keys.length)) return [3 /*break*/, 7];
-                    cookie = jdCookieNode[keys[i]];
-                    if (!!check) return [3 /*break*/, 2];
-                    cookiesArr.push(cookie);
-                    return [3 /*break*/, 6];
-                case 2: return [4 /*yield*/, checkCookie(cookie)];
-                case 3:
-                    if (!_a.sent()) return [3 /*break*/, 4];
-                    cookiesArr.push(cookie);
-                    return [3 /*break*/, 6];
-                case 4:
-                    username = decodeURIComponent(jdCookieNode[keys[i]].match(/pt_pin=([^;]*)/)[1]);
-                    console.log('Cookie失效', username);
-                    return [4 /*yield*/, (0, notify.sendNotify)('Cookie失效', '【京东账号】' + username)];
-                case 5:
-                    _a.sent();
-                    _a.label = 6;
-                case 6:
-                    i++;
-                    return [3 /*break*/, 1];
-                case 7:
-                    console.log("\u5171".concat(cookiesArr.length, "\u4E2A\u4EAC\u4E1C\u8D26\u53F7\n"));
-                    return [2 /*return*/, cookiesArr];
+        var cookiesArr, jdCookieNode, _a, _b, keys, ptpin_temp, uniqueCookieArr, cookiesArr_1, cookiesArr_1_1, cookie, UserName;
+        var e_1, _c, e_2, _d;
+        return __generator(this, function (_e) {
+            cookiesArr = [];
+            jdCookieNode = require('./jdCookie.js');
+            try {
+                for (_a = __values(Object.keys(jdCookieNode)), _b = _a.next(); !_b.done; _b = _a.next()) {
+                    keys = _b.value;
+                    cookiesArr.push(jdCookieNode[keys]);
+                }
             }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
+            ptpin_temp = [], uniqueCookieArr = [];
+            try {
+                for (cookiesArr_1 = __values(cookiesArr), cookiesArr_1_1 = cookiesArr_1.next(); !cookiesArr_1_1.done; cookiesArr_1_1 = cookiesArr_1.next()) {
+                    cookie = cookiesArr_1_1.value;
+                    UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
+                    if (!ptpin_temp.includes(UserName)) {
+                        ptpin_temp.push(UserName);
+                        uniqueCookieArr.push(cookie);
+                    }
+                }
+            }
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            finally {
+                try {
+                    if (cookiesArr_1_1 && !cookiesArr_1_1.done && (_d = cookiesArr_1.return)) _d.call(cookiesArr_1);
+                }
+                finally { if (e_2) throw e_2.error; }
+            }
+            cookiesArr = uniqueCookieArr;
+            console.log("\u5171".concat(cookiesArr.length, "\u4E2A\u4EAC\u4E1C\u8D26\u53F7\n"));
+            return [2 /*return*/, cookiesArr];
         });
     });
 }
-exports.requireConfig = requireConfig;
-function checkCookie(cookie) {
-    return __awaiter(this, void 0, void 0, function () {
-        var data, e_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, wait(1000)];
-                case 1:
-                    _a.sent();
-                    _a.label = 2;
-                case 2:
-                    _a.trys.push([2, 4, , 5]);
-                    return [4 /*yield*/, axios_1["default"].get("https://api.m.jd.com/client.action?functionId=GetJDUserInfoUnion&appid=jd-cphdeveloper-m&body=".concat(encodeURIComponent(JSON.stringify({ "orgFlag": "JD_PinGou_New", "callSource": "mainorder", "channel": 4, "isHomewhite": 0, "sceneval": 2 })), "&loginType=2&_=").concat(Date.now(), "&sceneval=2&g_login_type=1&callback=GetJDUserInfoUnion&g_ty=ls"), {
-                            headers: {
-                                'authority': 'api.m.jd.com',
-                                'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1',
-                                'referer': 'https://home.m.jd.com/',
-                                'cookie': cookie
-                            }
-                        })];
-                case 3:
-                    data = (_a.sent()).data;
-                    data = JSON.parse(data.match(/GetJDUserInfoUnion\((.*)\)/)[1]);
-                    return [2 /*return*/, data.retcode === '0'];
-                case 4:
-                    e_1 = _a.sent();
-                    return [2 /*return*/, false];
-                case 5: return [2 /*return*/];
-            }
-        });
-    });
-}
-function wait(timeout) {
+exports.getCookie = getCookie;
+function wait(ms) {
     return new Promise(function (resolve) {
-        setTimeout(resolve, timeout);
+        setTimeout(resolve, ms);
     });
 }
 exports.wait = wait;
-function requestAlgo(appId) {
-    if (appId === void 0) { appId = 10032; }
-    return __awaiter(this, void 0, void 0, function () {
-        var _this = this;
-        return __generator(this, function (_a) {
-            fingerprint = generateFp();
-            return [2 /*return*/, new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
-                    var data, enCryptMethodJDString;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4 /*yield*/, axios_1["default"].post('https://cactus.jd.com/request_algo?g_ty=ajax', {
-                                    "version": "1.0",
-                                    "fp": fingerprint,
-                                    "appId": appId,
-                                    "timestamp": Date.now(),
-                                    "platform": "web",
-                                    "expandParams": ""
-                                }, {
-                                    "headers": {
-                                        'Authority': 'cactus.jd.com',
-                                        'Pragma': 'no-cache',
-                                        'Cache-Control': 'no-cache',
-                                        'Accept': 'application/json',
-                                        'User-Agent': USER_AGENT,
-                                        'Content-Type': 'application/json',
-                                        'Origin': 'https://st.jingxi.com',
-                                        'Sec-Fetch-Site': 'cross-site',
-                                        'Sec-Fetch-Mode': 'cors',
-                                        'Sec-Fetch-Dest': 'empty',
-                                        'Referer': 'https://st.jingxi.com/',
-                                        'Accept-Language': 'zh-CN,zh;q=0.9,zh-TW;q=0.8,en;q=0.7'
-                                    }
-                                })];
-                            case 1:
-                                data = (_a.sent()).data;
-                                if (data['status'] === 200) {
-                                    token = data.data.result.tk;
-                                    enCryptMethodJDString = data.data.result.algo;
-                                    if (enCryptMethodJDString)
-                                        enCryptMethodJD = new Function("return ".concat(enCryptMethodJDString))();
-                                }
-                                else {
-                                    console.log("fp: ".concat(fingerprint));
-                                    console.log('request_algo 签名参数API请求失败:');
-                                }
-                                resolve();
-                                return [2 /*return*/];
-                        }
-                    });
-                }); })];
-        });
-    });
-}
-exports.requestAlgo = requestAlgo;
-function generateFp() {
-    var e = "0123456789";
-    var a = 13;
-    var i = '';
-    for (; a--;)
-        i += e[Math.random() * e.length | 0];
-    return (i + Date.now()).slice(0, 16);
-}
 function getJxToken(cookie, phoneId) {
     if (phoneId === void 0) { phoneId = ''; }
     function generateStr(input) {
@@ -332,9 +247,10 @@ function randomString(e, word) {
     return n;
 }
 exports.randomString = randomString;
-function o2s(arr, title) {
+function o2s(msg, title) {
     if (title === void 0) { title = ''; }
-    title ? console.log(title, JSON.stringify(arr)) : console.log(JSON.stringify(arr));
+    title && console.log('⬇️', title, '⬇️');
+    typeof msg === 'string' ? console.log(msg) : console.log(JSON.stringify(msg));
 }
 exports.o2s = o2s;
 function randomNumString(e) {
@@ -357,7 +273,7 @@ function randomWord(n) {
 exports.randomWord = randomWord;
 function getshareCodeHW(key) {
     return __awaiter(this, void 0, void 0, function () {
-        var shareCodeHW, i, data, e_2;
+        var shareCodeHW, i, data, e_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -369,7 +285,7 @@ function getshareCodeHW(key) {
                     _a.label = 2;
                 case 2:
                     _a.trys.push([2, 4, , 6]);
-                    return [4 /*yield*/, axios_1["default"].get('https://api.jdsharecode.xyz/api/HW_CODES')];
+                    return [4 /*yield*/, axios_1.default.get('http://sharecodepool.cnmb.pw/api/HW_CODES')];
                 case 3:
                     data = (_a.sent()).data;
                     shareCodeHW = data[key] || [];
@@ -378,7 +294,7 @@ function getshareCodeHW(key) {
                     }
                     return [3 /*break*/, 6];
                 case 4:
-                    e_2 = _a.sent();
+                    e_3 = _a.sent();
                     console.log("getshareCodeHW Error, Retry...");
                     return [4 /*yield*/, wait(getRandomNumberByRange(2000, 6000))];
                 case 5:
@@ -395,7 +311,7 @@ function getshareCodeHW(key) {
 exports.getshareCodeHW = getshareCodeHW;
 function getShareCodePool(key, num) {
     return __awaiter(this, void 0, void 0, function () {
-        var shareCode, i, data, e_3;
+        var shareCode, i, data, e_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -407,7 +323,7 @@ function getShareCodePool(key, num) {
                     _a.label = 2;
                 case 2:
                     _a.trys.push([2, 4, , 6]);
-                    return [4 /*yield*/, axios_1["default"].get("https://api.jdsharecode.xyz/api/".concat(key, "/").concat(num))];
+                    return [4 /*yield*/, axios_1.default.get("http://sharecodepool.cnmb.pw/api/".concat(key, "/").concat(num))];
                 case 3:
                     data = (_a.sent()).data;
                     shareCode = data.data || [];
@@ -417,7 +333,7 @@ function getShareCodePool(key, num) {
                     }
                     return [3 /*break*/, 6];
                 case 4:
-                    e_3 = _a.sent();
+                    e_4 = _a.sent();
                     console.log("getShareCodePool Error, Retry...");
                     return [4 /*yield*/, wait(getRandomNumberByRange(2000, 6000))];
                 case 5:
@@ -432,7 +348,8 @@ function getShareCodePool(key, num) {
     });
 }
 exports.getShareCodePool = getShareCodePool;
-/*async function wechat_app_msg(title: string, content: string, user: string) {
+/*
+async function wechat_app_msg(title: string, content: string, user: string) {
   let corpid: string = "", corpsecret: string = ""
   let {data: gettoken} = await axios.get(`https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=${corpid}&corpsecret=${corpsecret}`)
   let access_token: string = gettoken.access_token
@@ -451,17 +368,14 @@ exports.getShareCodePool = getShareCodePool;
   } else {
     console.log('企业微信应用消息发送失败', send)
   }
-}*/
-function obj2str(obj) {
-    return JSON.stringify(obj);
 }
-exports.obj2str = obj2str;
+*/
 function getDevice() {
     return __awaiter(this, void 0, void 0, function () {
         var data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1["default"].get('https://betahub.cn/api/apple/devices/iPhone', {
+                case 0: return [4 /*yield*/, axios_1.default.get('https://betahub.cn/api/apple/devices/iPhone', {
                         headers: {
                             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
                         }
@@ -479,7 +393,7 @@ function getVersion(device) {
         var data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1["default"].get("https://betahub.cn/api/apple/firmwares/".concat(device), {
+                case 0: return [4 /*yield*/, axios_1.default.get("https://betahub.cn/api/apple/firmwares/".concat(device), {
                         headers: {
                             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
                         }
@@ -509,10 +423,9 @@ function jdpingou() {
     });
 }
 exports.jdpingou = jdpingou;
-function get(url, prarms, headers) {
+function get(url, headers) {
     return new Promise(function (resolve, reject) {
-        axios_1["default"].get(url, {
-            params: prarms,
+        axios_1.default.get(url, {
             headers: headers
         }).then(function (res) {
             if (typeof res.data === 'string' && res.data.includes('jsonpCBK')) {
@@ -521,7 +434,7 @@ function get(url, prarms, headers) {
             else {
                 resolve(res.data);
             }
-        })["catch"](function (err) {
+        }).catch(function (err) {
             var _a, _b;
             reject({
                 code: ((_a = err === null || err === void 0 ? void 0 : err.response) === null || _a === void 0 ? void 0 : _a.status) || -1,
@@ -533,11 +446,11 @@ function get(url, prarms, headers) {
 exports.get = get;
 function post(url, prarms, headers) {
     return new Promise(function (resolve, reject) {
-        axios_1["default"].post(url, prarms, {
+        axios_1.default.post(url, prarms, {
             headers: headers
         }).then(function (res) {
             resolve(res.data);
-        })["catch"](function (err) {
+        }).catch(function (err) {
             var _a, _b;
             reject({
                 code: ((_a = err === null || err === void 0 ? void 0 : err.response) === null || _a === void 0 ? void 0 : _a.status) || -1,
@@ -547,4 +460,4 @@ function post(url, prarms, headers) {
     });
 }
 exports.post = post;
-exports["default"] = USER_AGENT;
+exports.default = USER_AGENT;

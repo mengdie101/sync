@@ -1,8 +1,7 @@
 "use strict";
 /**
- * 微信小程序签到红包
- * FP_9A38A
- * cron: 8 10 * * *
+ * 我的PLUS综合分
+ * cron: 30 9 * * 1
  */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -56,119 +55,98 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var h5st_pro_1 = require("./utils/h5st_pro");
 var TS_JDHelloWorld_1 = require("./TS_JDHelloWorld");
-var Jd_wechat_sign = /** @class */ (function (_super) {
-    __extends(Jd_wechat_sign, _super);
-    function Jd_wechat_sign() {
-        return _super.call(this, "微信签到") || this;
+var h5st_pro_1 = require("./utils/h5st_pro");
+var jd_WindControl = /** @class */ (function (_super) {
+    __extends(jd_WindControl, _super);
+    function jd_WindControl() {
+        return _super.call(this) || this;
     }
-    Jd_wechat_sign.prototype.init = function () {
+    jd_WindControl.prototype.init = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, _b, e_1;
-            var _c;
-            return __generator(this, function (_d) {
-                switch (_d.label) {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        _d.trys.push([0, 4, , 5]);
                         _a = this;
-                        if (!((_c = process.env.FP_9A38A) !== null && _c !== void 0)) return [3 /*break*/, 1];
-                        _b = _c;
-                        return [3 /*break*/, 3];
-                    case 1: return [4 /*yield*/, this.getFp()];
+                        return [4 /*yield*/, this.getFp()];
+                    case 1:
+                        _a.fp = _b.sent();
+                        return [4 /*yield*/, this.run(this)];
                     case 2:
-                        _b = _d.sent();
-                        _d.label = 3;
-                    case 3:
-                        _a.fp = _b;
-                        return [3 /*break*/, 5];
-                    case 4:
-                        e_1 = _d.sent();
-                        console.log('FP Error: ', e_1.message);
-                        process.exit(0);
-                        return [3 /*break*/, 5];
-                    case 5: return [4 /*yield*/, this.run(this)];
-                    case 6:
-                        _d.sent();
+                        _b.sent();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    Jd_wechat_sign.prototype.task = function (fn, body, signComponent) {
+    jd_WindControl.prototype.api = function (fn, body) {
         return __awaiter(this, void 0, void 0, function () {
             var h5st;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.h5stTool.__genH5st({
-                            appid: "hot_channel",
+                            appid: 'plus_business',
                             body: JSON.stringify(body),
-                            client: "android",
-                            clientVersion: "7.22.240",
-                            functionId: signComponent,
+                            functionId: fn,
                         })];
                     case 1:
                         h5st = _a.sent();
-                        return [4 /*yield*/, this.post("https://api.m.jd.com/scanTask/".concat(fn), "client=android&clientVersion=7.22.240&functionId=".concat(signComponent, "&appid=hot_channel&body=").concat(encodeURIComponent(JSON.stringify(body)), "&h5st=").concat(h5st), {
+                        return [4 /*yield*/, this.post("https://api.m.jd.com/api?functionId=".concat(fn), new URLSearchParams({
+                                appid: 'plus_business',
+                                loginType: '2',
+                                loginWQBiz: '',
+                                functionId: fn,
+                                body: '{}',
+                                h5st: h5st,
+                            }), {
                                 'Host': 'api.m.jd.com',
-                                'wqreferer': 'http://wq.jd.com/wxapp/pages/market/market2/index',
+                                'x-rp-client': 'h5_1.0.0',
+                                'Origin': 'https://plus.m.jd.com',
                                 'User-Agent': this.user.UserAgent,
-                                'Referer': 'https://servicewechat.com/wx91d27dbf599dff74/664/page-frame.html',
-                                'Cookie': this.user.cookie
+                                'Referer': 'https://plus.m.jd.com/rights/windControl',
+                                'x-referer-page': 'https://plus.m.jd.com/rights/windControl',
+                                'Cookie': this.user.cookie,
                             })];
                     case 2: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    Jd_wechat_sign.prototype.main = function (user) {
+    jd_WindControl.prototype.main = function (user) {
         return __awaiter(this, void 0, void 0, function () {
-            var res, data, e_2;
+            var res, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 9, , 10]);
+                        _a.trys.push([0, 3, , 4]);
                         this.user = user;
-                        this.user.UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS ".concat(this.getIosVer(), " like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.28(0x18001c2b) NetType/WIFI Language/zh_CN");
-                        res = void 0, data = void 0;
-                        this.h5stTool = new h5st_pro_1.H5ST("9a38a", this.user.UserAgent, this.fp, 'http://wq.jd.com/wxapp/pages/market/market2/index', 'http://wq.jd.com', this.user.UserName);
+                        res = void 0;
+                        this.h5stTool = new h5st_pro_1.H5ST('b63ff', this.user.UserAgent, this.fp, 'https://plus.m.jd.com/rights/windControl', 'https://plus.m.jd.com');
                         return [4 /*yield*/, this.h5stTool.__genAlgo()];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, this.task('doSignTask', { "activityId": "10004", "version": 1 }, 'SignComponent_doSignTask')];
+                        return [4 /*yield*/, this.api('windControl_queryScore_v1', {})];
                     case 2:
                         res = _a.sent();
-                        res.success ? console.log('签到奖励', res.data.rewardList[0].discount) : console.log(res.message);
-                        this.h5stTool = new h5st_pro_1.H5ST("2b5bc", this.user.UserAgent, this.fp, 'http://wq.jd.com/wxapp/pages/market/market2/index', 'http://wq.jd.com', this.user.UserName);
-                        return [4 /*yield*/, this.h5stTool.__genAlgo()];
+                        console.log('综合：', res.rs.userSynthesizeScore.totalScore);
+                        console.log('信用：', res.rs.userDimensionScore.baiScore);
+                        console.log('购物合规：', res.rs.userDimensionScore.shop);
+                        console.log('售后行为：', res.rs.userDimensionScore.active);
+                        console.log('账户信息：', res.rs.userDimensionScore.accountInfo);
+                        return [3 /*break*/, 4];
                     case 3:
-                        _a.sent();
-                        return [4 /*yield*/, this.task('querySignList', { "activityId": "10004", "version": 1 }, 'SignComponent_querySignList')];
-                    case 4:
-                        res = _a.sent();
-                        if (!!res.data.scanTaskInfo.completionFlag) return [3 /*break*/, 8];
-                        return [4 /*yield*/, this.task('startScanTask', { "itemId": res.data.scanTaskInfo.itemId, "activityId": "10004", "scanAssignmentId": res.data.scanTaskInfo.scanAssignmentId, "actionType": 1, "version": 1 }, 'SignComponent_doScanTask')];
+                        e_1 = _a.sent();
+                        console.log(e_1.message);
+                        return [3 /*break*/, 4];
+                    case 4: return [4 /*yield*/, this.wait(3000)];
                     case 5:
-                        data = _a.sent();
-                        console.log('开始任务', data.message || res.success);
-                        return [4 /*yield*/, this.wait(8000)];
-                    case 6:
                         _a.sent();
-                        return [4 /*yield*/, this.task('startScanTask', { "activityId": "10004", "actionType": 0, "scanAssignmentId": res.data.scanTaskInfo.scanAssignmentId, "itemId": res.data.scanTaskInfo.itemId, "version": 1 }, 'SignComponent_doScanTask')];
-                    case 7:
-                        data = _a.sent();
-                        console.log('领取奖励', data.data.rewardList[0].discount);
-                        _a.label = 8;
-                    case 8: return [3 /*break*/, 10];
-                    case 9:
-                        e_2 = _a.sent();
-                        console.log(e_2.message);
-                        return [3 /*break*/, 10];
-                    case 10: return [2 /*return*/];
+                        return [2 /*return*/];
                 }
             });
         });
     };
-    return Jd_wechat_sign;
+    return jd_WindControl;
 }(TS_JDHelloWorld_1.JDHelloWorld));
-new Jd_wechat_sign().init().then();
+new jd_WindControl().init().then();

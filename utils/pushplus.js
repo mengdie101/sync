@@ -14,7 +14,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -46,7 +46,7 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.pushplus = void 0;
 var axios_1 = require("axios");
 var fs_1 = require("fs");
@@ -57,11 +57,11 @@ try {
 catch (e) {
     console.log('utils/account.json load failed');
 }
-function pushplus(title, content, template) {
-    if (template === void 0) { template = 'html'; }
-    return __awaiter(this, void 0, void 0, function () {
+function pushplus(title_1, content_1) {
+    return __awaiter(this, arguments, void 0, function (title, content, template) {
         var token, account_1, account_1_1, user, data;
         var e_1, _a;
+        if (template === void 0) { template = 'html'; }
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -77,7 +77,7 @@ function pushplus(title, content, template) {
                     catch (e_1_1) { e_1 = { error: e_1_1 }; }
                     finally {
                         try {
-                            if (account_1_1 && !account_1_1.done && (_a = account_1["return"])) _a.call(account_1);
+                            if (account_1_1 && !account_1_1.done && (_a = account_1.return)) _a.call(account_1);
                         }
                         finally { if (e_1) throw e_1.error; }
                     }
@@ -85,7 +85,7 @@ function pushplus(title, content, template) {
                         console.log('no pushplus token');
                         return [2 /*return*/];
                     }
-                    return [4 /*yield*/, axios_1["default"].post('https://www.pushplus.plus/send', {
+                    return [4 /*yield*/, axios_1.default.post('https://www.pushplus.plus/send', {
                             token: token,
                             title: title,
                             content: content,

@@ -1,12 +1,23 @@
 "use strict";
 /**
- * 京东-东东农场-助力
- * 所有CK助力顺序
- * 内部 -> 助力池
- * 和jd_fruit.js同方法自己设置内部码
- * 如果没有添加内部码，直接助力助力池
- * cron: 35 0,3,5 * * *
+ * 种树助力
+ * cron: 35 0,6,12,18,23 * * *
  */
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -22,7 +33,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -79,247 +90,179 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-exports.__esModule = true;
-var axios_1 = require("axios");
-var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
-var date_fns_1 = require("date-fns");
-var cookie = '', res = '', data, UserName;
-var shareCodeSelf = [], shareCodePool = [], shareCode = [], shareCodeFile = require('./jdFruitShareCodes');
-var message = '', log = { help: '', runTimes: '' };
-!(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, _a, _b, _c, index, value, i, today, e_1, e_2, shareCodeSelf_1, shareCodeSelf_1_1, code, e_3_1, farmAssistInit_waterEnergy, _d, _e, t, e_4_1, e_5_1;
-    var e_5, _f, e_3, _g, e_4, _h;
-    return __generator(this, function (_j) {
-        switch (_j.label) {
-            case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
-            case 1:
-                cookiesArr = _j.sent();
-                _j.label = 2;
-            case 2:
-                _j.trys.push([2, 43, 44, 45]);
-                _a = __values(cookiesArr.entries()), _b = _a.next();
-                _j.label = 3;
-            case 3:
-                if (!!_b.done) return [3 /*break*/, 42];
-                _c = __read(_b.value, 2), index = _c[0], value = _c[1];
-                cookie = value;
-                UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
-                console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7".concat(index + 1, "\u3011").concat(UserName, "\n"));
-                message += "\u3010\u8D26\u53F7".concat(index + 1, "\u3011  ").concat(UserName, "\n");
-                log.help += "\u3010\u8D26\u53F7".concat(index + 1, "\u3011  ").concat(UserName, "\n");
-                log.runTimes += "\u3010\u8D26\u53F7".concat(index + 1, "\u3011  ").concat(UserName, "\n");
-                if (Object.keys(shareCodeFile)[index]) {
-                    shareCodeSelf = shareCodeFile[Object.keys(shareCodeFile)[index]].split('@');
+Object.defineProperty(exports, "__esModule", { value: true });
+var TS_JDHelloWorld_1 = require("./TS_JDHelloWorld");
+var crypto_js_1 = require("crypto-js");
+var Jd_fruit_help = /** @class */ (function (_super) {
+    __extends(Jd_fruit_help, _super);
+    function Jd_fruit_help() {
+        var _this = _super.call(this) || this;
+        _this.shareCodeSelf = [];
+        return _this;
+    }
+    Jd_fruit_help.prototype.init = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.run(this)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
                 }
-                (0, TS_USER_AGENTS_1.o2s)(shareCodeSelf, "\u7B2C".concat(index + 1, "\u4E2A\u8D26\u53F7\u83B7\u53D6\u7684\u5185\u90E8\u4E92\u52A9"));
-                return [4 /*yield*/, api('initForFarm', { "version": 11, "channel": 3 })];
-            case 4:
-                res = _j.sent();
-                if (!(res.code === '6')) return [3 /*break*/, 6];
-                console.log('黑号');
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(5000)];
-            case 5:
-                _j.sent();
-                return [3 /*break*/, 41];
-            case 6:
-                _j.trys.push([6, 14, , 15]);
-                console.log('助力码', res.farmUserPro.shareCode);
-                i = 0;
-                _j.label = 7;
-            case 7:
-                if (!(i < 5)) return [3 /*break*/, 13];
-                _j.label = 8;
-            case 8:
-                _j.trys.push([8, 10, , 12]);
-                today = (0, date_fns_1.getDate)(new Date());
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.get)("https://api.jdsharecode.xyz/api/runTimes0407?activityId=farm&sharecode=".concat(res.farmUserPro.shareCode, "&today=").concat(today))];
-            case 9:
-                res = _j.sent();
-                console.log(res);
-                log.runTimes += "\u7B2C".concat(i + 1, "\u6B21").concat(res, "\n");
-                return [3 /*break*/, 13];
-            case 10:
-                e_1 = _j.sent();
-                console.log("\u7B2C".concat(i + 1, "\u6B21\u4E0A\u62A5\u5931\u8D25"), e_1);
-                log.runTimes += "\u7B2C".concat(i + 1, "\u6B21\u4E0A\u62A5\u5931\u8D25 ").concat(typeof e_1 === 'object' ? JSON.stringify(e_1) : e_1, "\n");
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)((0, TS_USER_AGENTS_1.getRandomNumberByRange)(10000, 30000))];
-            case 11:
-                _j.sent();
-                return [3 /*break*/, 12];
-            case 12:
-                i++;
-                return [3 /*break*/, 7];
-            case 13: return [3 /*break*/, 15];
-            case 14:
-                e_2 = _j.sent();
-                console.log('获取助力码失败，黑号？');
-                return [3 /*break*/, 41];
-            case 15: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)
-                // 助力
-            ];
-            case 16:
-                _j.sent();
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.getShareCodePool)('farm', 50)];
-            case 17:
-                // 助力
-                shareCodePool = _j.sent();
-                shareCode = Array.from(new Set(__spreadArray(__spreadArray([], __read(shareCodeSelf), false), __read(shareCodePool), false)));
-                _j.label = 18;
-            case 18:
-                _j.trys.push([18, 24, 25, 26]);
-                shareCodeSelf_1 = (e_3 = void 0, __values(shareCodeSelf)), shareCodeSelf_1_1 = shareCodeSelf_1.next();
-                _j.label = 19;
-            case 19:
-                if (!!shareCodeSelf_1_1.done) return [3 /*break*/, 23];
-                code = shareCodeSelf_1_1.value;
-                console.log("\u8D26\u53F7 ".concat(UserName, " \u53BB\u52A9\u529B ").concat(code, " ").concat(shareCodeSelf.includes(code) ? '*内部*' : ''));
-                return [4 /*yield*/, api('initForFarm', { "mpin": "", "utm_campaign": "t_335139774", "utm_medium": "appshare", "shareCode": code, "utm_term": "Wxfriends", "utm_source": "iosapp", "imageUrl": "", "nickName": "", "version": 14, "channel": 2, "babelChannel": 0 })];
-            case 20:
-                res = _j.sent();
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(3000)];
-            case 21:
-                _j.sent();
-                if (res.helpResult.code === '7') {
-                    console.log('不给自己助力');
-                }
-                else if (res.helpResult.code === '0') {
-                    console.log('助力成功,获得', res.helpResult.salveHelpAddWater);
-                    log.help += "\u52A9\u529B\u6210\u529F ".concat(code, " ").concat(shareCodeSelf.includes(code) ? '*内部*' : '', "\n");
-                }
-                else if (res.helpResult.code === '8') {
-                    console.log('上限');
-                    return [3 /*break*/, 23];
-                }
-                else if (res.helpResult.code === '9') {
-                    console.log('已助力');
-                    log.help += "\u5DF2\u52A9\u529B ".concat(code, " ").concat(shareCodeSelf.includes(code) ? '*内部*' : '', "\n");
-                }
-                else if (res.helpResult.code === '10') {
-                    console.log('已满');
-                }
-                else if (res.helpResult.remainTimes === 0) {
-                    console.log('次数用完');
-                    return [3 /*break*/, 23];
-                }
-                _j.label = 22;
-            case 22:
-                shareCodeSelf_1_1 = shareCodeSelf_1.next();
-                return [3 /*break*/, 19];
-            case 23: return [3 /*break*/, 26];
-            case 24:
-                e_3_1 = _j.sent();
-                e_3 = { error: e_3_1 };
-                return [3 /*break*/, 26];
-            case 25:
-                try {
-                    if (shareCodeSelf_1_1 && !shareCodeSelf_1_1.done && (_g = shareCodeSelf_1["return"])) _g.call(shareCodeSelf_1);
-                }
-                finally { if (e_3) throw e_3.error; }
-                return [7 /*endfinally*/];
-            case 26: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)
-                // 助力奖励
-            ];
-            case 27:
-                _j.sent();
-                return [4 /*yield*/, api('farmAssistInit', { "version": 14, "channel": 1, "babelChannel": "120" })];
-            case 28:
-                // 助力奖励
-                res = _j.sent();
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
-            case 29:
-                _j.sent();
-                (0, TS_USER_AGENTS_1.o2s)(res, 'farmAssistInit');
-                farmAssistInit_waterEnergy = 0;
-                _j.label = 30;
-            case 30:
-                _j.trys.push([30, 37, 38, 39]);
-                _d = (e_4 = void 0, __values(res.assistStageList)), _e = _d.next();
-                _j.label = 31;
-            case 31:
-                if (!!_e.done) return [3 /*break*/, 36];
-                t = _e.value;
-                if (!(t.percentage === '100%' && t.stageStaus === 2)) return [3 /*break*/, 34];
-                return [4 /*yield*/, api('receiveStageEnergy', { "version": 14, "channel": 1, "babelChannel": "120" })];
-            case 32:
-                data = _j.sent();
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
-            case 33:
-                _j.sent();
-                farmAssistInit_waterEnergy += t.waterEnergy;
-                return [3 /*break*/, 35];
-            case 34:
-                if (t.stageStaus === 3) {
-                    farmAssistInit_waterEnergy += t.waterEnergy;
-                }
-                _j.label = 35;
-            case 35:
-                _e = _d.next();
-                return [3 /*break*/, 31];
-            case 36: return [3 /*break*/, 39];
-            case 37:
-                e_4_1 = _j.sent();
-                e_4 = { error: e_4_1 };
-                return [3 /*break*/, 39];
-            case 38:
-                try {
-                    if (_e && !_e.done && (_h = _d["return"])) _h.call(_d);
-                }
-                finally { if (e_4) throw e_4.error; }
-                return [7 /*endfinally*/];
-            case 39:
-                console.log('收到助力', res.assistFriendList.length);
-                console.log('助力已领取', farmAssistInit_waterEnergy);
-                message += "\u3010\u52A9\u529B\u5DF2\u9886\u53D6\u3011  ".concat(farmAssistInit_waterEnergy, "\n");
-                message += '\n\n';
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(5000)];
-            case 40:
-                _j.sent();
-                _j.label = 41;
-            case 41:
-                _b = _a.next();
-                return [3 /*break*/, 3];
-            case 42: return [3 /*break*/, 45];
-            case 43:
-                e_5_1 = _j.sent();
-                e_5 = { error: e_5_1 };
-                return [3 /*break*/, 45];
-            case 44:
-                try {
-                    if (_b && !_b.done && (_f = _a["return"])) _f.call(_a);
-                }
-                finally { if (e_5) throw e_5.error; }
-                return [7 /*endfinally*/];
-            case 45:
-                if (message) {
-                    console.log('===================');
-                    console.log(message);
-                    console.log('===================');
-                }
-                console.log(log.help);
-                console.log(log.runTimes);
-                return [2 /*return*/];
-        }
-    });
-}); })();
-function api(fn, body) {
-    return __awaiter(this, void 0, void 0, function () {
-        var data;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1["default"].get("https://api.m.jd.com/client.action?functionId=".concat(fn, "&body=").concat(JSON.stringify(body), "&appid=wh5&client=apple&clientVersion=10.2.4"), {
-                        headers: {
-                            "Host": "api.m.jd.com",
-                            "Origin": "https://carry.m.jd.com",
-                            "User-Agent": TS_USER_AGENTS_1["default"],
-                            "Accept-Language": "zh-CN,zh-Hans;q=0.9",
-                            "Referer": "https://carry.m.jd.com/",
-                            "Cookie": cookie
-                        }
-                    })];
-                case 1:
-                    data = (_a.sent()).data;
-                    return [2 /*return*/, data];
-            }
+            });
         });
-    });
-}
+    };
+    Jd_fruit_help.prototype.api = function (fn, body) {
+        return __awaiter(this, void 0, void 0, function () {
+            var timestamp, h5st;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        timestamp = Date.now();
+                        return [4 /*yield*/, this.h5stTool.sign({
+                                appid: 'signed_wh5',
+                                body: crypto_js_1.default.SHA256(JSON.stringify(body)).toString(crypto_js_1.default.enc.Hex),
+                                client: 'iOS',
+                                clientVersion: '12.3.2',
+                                functionId: fn,
+                                t: timestamp
+                            })];
+                    case 1:
+                        h5st = (_a.sent()).h5st;
+                        return [4 /*yield*/, this.get("https://api.m.jd.com/client.action?functionId=".concat(fn, "&body=").concat(encodeURIComponent(JSON.stringify(body)), "&appid=signed_wh5&timestamp=").concat(timestamp, "&client=iOS&clientVersion=12.3.2&h5st=").concat(h5st), {
+                                'authority': 'api.m.jd.com',
+                                'cookie': this.user.cookie,
+                                'origin': 'https://carry.m.jd.com',
+                                'referer': 'https://carry.m.jd.com/',
+                                'user-agent': this.user.UserAgent,
+                                'x-referer-page': 'https://carry.m.jd.com/babelDiy/Zeus/3KSjXqQabiTuD1cJ28QskrpWoBKT/index.html',
+                                'x-rp-client': 'h5_1.0.0'
+                            })];
+                    case 2: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    Jd_fruit_help.prototype.main = function (user) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res, e_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        this.user = user;
+                        this.h5stTool = this.h5st('42', '8a2af', this.user.UserAgent);
+                        return [4 /*yield*/, this.api('initForFarm', { "babelChannel": "522", "version": 26, "channel": 1, "lat": "0", "lng": "0" })];
+                    case 1:
+                        res = _a.sent();
+                        console.log('助力码', res['farmUserPro'].shareCode);
+                        this.shareCodeSelf.push(res['farmUserPro'].shareCode);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_1 = _a.sent();
+                        console.log('获取失败', e_1);
+                        return [3 /*break*/, 3];
+                    case 3: return [4 /*yield*/, this.wait(5000)];
+                    case 4:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Jd_fruit_help.prototype.help = function (users) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res, users_1, users_1_1, user, shareCodePool, shareCode, shareCode_1, shareCode_1_1, code, e_2, e_3_1, e_4, e_5_1;
+            var e_5, _a, e_3, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _c.trys.push([0, 21, 22, 23]);
+                        users_1 = __values(users), users_1_1 = users_1.next();
+                        _c.label = 1;
+                    case 1:
+                        if (!!users_1_1.done) return [3 /*break*/, 20];
+                        user = users_1_1.value;
+                        _c.label = 2;
+                    case 2:
+                        _c.trys.push([2, 16, , 17]);
+                        this.user = user;
+                        this.h5stTool = this.h5st('42', '8a2af', this.user.UserAgent);
+                        return [4 /*yield*/, this.getShareCodePool('farm', 50)];
+                    case 3:
+                        shareCodePool = _c.sent();
+                        shareCode = Array.from(new Set(__spreadArray(__spreadArray([], __read(this.shareCodeSelf), false), __read(shareCodePool), false)));
+                        _c.label = 4;
+                    case 4:
+                        _c.trys.push([4, 13, 14, 15]);
+                        shareCode_1 = (e_3 = void 0, __values(shareCode)), shareCode_1_1 = shareCode_1.next();
+                        _c.label = 5;
+                    case 5:
+                        if (!!shareCode_1_1.done) return [3 /*break*/, 12];
+                        code = shareCode_1_1.value;
+                        _c.label = 6;
+                    case 6:
+                        _c.trys.push([6, 8, , 9]);
+                        console.log("\u8D26\u53F7".concat(user.index + 1, " ").concat(user.UserName, " \u53BB\u52A9\u529B ").concat(code));
+                        return [4 /*yield*/, this.api('initForFarm', { "babelChannel": "522", "shareCode": code, "mpin": "", "from": "kouling", "version": 26, "channel": 1, "lat": "0", "lng": "0" })];
+                    case 7:
+                        res = _c.sent();
+                        console.log('剩余助力', res.helpResult.remainTimes, '助力结果', res.helpResult.code);
+                        if (res.helpResult.remainTimes === 0) {
+                            console.log('上限');
+                            return [3 /*break*/, 12];
+                        }
+                        return [3 /*break*/, 9];
+                    case 8:
+                        e_2 = _c.sent();
+                        console.log(e_2.message);
+                        return [3 /*break*/, 9];
+                    case 9: return [4 /*yield*/, this.wait(5000)];
+                    case 10:
+                        _c.sent();
+                        _c.label = 11;
+                    case 11:
+                        shareCode_1_1 = shareCode_1.next();
+                        return [3 /*break*/, 5];
+                    case 12: return [3 /*break*/, 15];
+                    case 13:
+                        e_3_1 = _c.sent();
+                        e_3 = { error: e_3_1 };
+                        return [3 /*break*/, 15];
+                    case 14:
+                        try {
+                            if (shareCode_1_1 && !shareCode_1_1.done && (_b = shareCode_1.return)) _b.call(shareCode_1);
+                        }
+                        finally { if (e_3) throw e_3.error; }
+                        return [7 /*endfinally*/];
+                    case 15: return [3 /*break*/, 17];
+                    case 16:
+                        e_4 = _c.sent();
+                        console.log(e_4);
+                        return [3 /*break*/, 17];
+                    case 17: return [4 /*yield*/, this.wait(15000)];
+                    case 18:
+                        _c.sent();
+                        _c.label = 19;
+                    case 19:
+                        users_1_1 = users_1.next();
+                        return [3 /*break*/, 1];
+                    case 20: return [3 /*break*/, 23];
+                    case 21:
+                        e_5_1 = _c.sent();
+                        e_5 = { error: e_5_1 };
+                        return [3 /*break*/, 23];
+                    case 22:
+                        try {
+                            if (users_1_1 && !users_1_1.done && (_a = users_1.return)) _a.call(users_1);
+                        }
+                        finally { if (e_5) throw e_5.error; }
+                        return [7 /*endfinally*/];
+                    case 23: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return Jd_fruit_help;
+}(TS_JDHelloWorld_1.JDHelloWorld));
+new Jd_fruit_help().init().then();

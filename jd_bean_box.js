@@ -19,7 +19,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -51,18 +51,17 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
 var cookie = '', res = '', UserName, index, uuid;
-// let shareCodeSelf: { shareCode: string, groupCode: string, activeId: string }[] = [], shareCode: { shareCode: string, groupCode: string, activeId: string }[] = [], shareCodeHW: { shareCode: string, groupCode: string, activeId: string }[] = []
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
     var cookiesArr, i, headers, times, j, j, _a, _b, t, e_1_1, e_2;
     var e_1, _c;
     var _d, _e;
     return __generator(this, function (_f) {
         switch (_f.label) {
-            case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
+            case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.getCookie)()];
             case 1:
                 cookiesArr = _f.sent();
                 i = 0;
@@ -76,11 +75,11 @@ var cookie = '', res = '', UserName, index, uuid;
                 headers = {
                     'Host': 'api.m.jd.com',
                     'Origin': 'https://h5.m.jd.com',
-                    'User-Agent': TS_USER_AGENTS_1["default"],
+                    'User-Agent': TS_USER_AGENTS_1.default,
                     'Referer': 'https://h5.m.jd.com/',
                     'Cookie': cookie
                 };
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.get)('https://api.m.jd.com/client.action?functionId=initForTurntableFarm&body=%7B%22version%22%3A4%2C%22channel%22%3A1%7D&appid=wh5', '', headers)];
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.get)('https://api.m.jd.com/client.action?functionId=initForTurntableFarm&body=%7B%22version%22%3A4%2C%22channel%22%3A1%7D&appid=wh5', headers)];
             case 3:
                 res = _f.sent();
                 times = res.remainLotteryTimes;
@@ -90,7 +89,7 @@ var cookie = '', res = '', UserName, index, uuid;
             case 4:
                 if (!(j < times)) return [3 /*break*/, 8];
                 console.log('开始抽奖...');
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.get)('https://api.m.jd.com/client.action?functionId=lotteryForTurntableFarm&body=%7B%22type%22%3A1%2C%22version%22%3A4%2C%22channel%22%3A1%7D&appid=wh5', '', headers)];
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.get)('https://api.m.jd.com/client.action?functionId=lotteryForTurntableFarm&body=%7B%22type%22%3A1%2C%22version%22%3A4%2C%22channel%22%3A1%7D&appid=wh5', headers)];
             case 5:
                 res = _f.sent();
                 if (res.code === '0') {
@@ -168,7 +167,7 @@ var cookie = '', res = '', UserName, index, uuid;
                 return [3 /*break*/, 23];
             case 22:
                 try {
-                    if (_b && !_b.done && (_c = _a["return"])) _c.call(_a);
+                    if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
                 }
                 finally { if (e_1) throw e_1.error; }
                 return [7 /*endfinally*/];
@@ -196,7 +195,7 @@ function api(fn, body) {
         var data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1["default"].post("https://api.m.jd.com/client.action?functionId=".concat(fn), "body=".concat(encodeURIComponent(JSON.stringify(body)), "&appid=ld&client=apple&clientVersion=10.0.8&uuid=").concat(uuid, "&openudid=").concat(uuid), {
+                case 0: return [4 /*yield*/, axios_1.default.post("https://api.m.jd.com/client.action?functionId=".concat(fn), "body=".concat(encodeURIComponent(JSON.stringify(body)), "&appid=ld&client=apple&clientVersion=10.0.8&uuid=").concat(uuid, "&openudid=").concat(uuid), {
                         headers: {
                             'Host': 'api.m.jd.com',
                             'content-type': 'application/x-www-form-urlencoded',
@@ -212,14 +211,3 @@ function api(fn, body) {
         });
     });
 }
-/*async function qjd(fn: string, body?: object) {
-  let {data} = await axios.get(`https://api.m.jd.com/client.action?functionId=${fn}&body=${encodeURIComponent(JSON.stringify(body))}&appid=ld&client=apple&clientVersion=10.0.8&uuid=${uuid}&openudid=${uuid}`, {
-    headers: {
-      'Host': 'api.m.jd.com',
-      'User-Agent': USER_AGENT,
-      'Referer': 'https://h5.m.jd.com/rn/3MQXMdRUTeat9xqBSZDSCCAE9Eqz/index.html',
-      'Cookie': cookie
-    }
-  })
-  return data
-}*/
